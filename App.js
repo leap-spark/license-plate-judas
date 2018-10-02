@@ -1,6 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+const config = {
+    base: process.env.AIRTABLE_BASE,
+    table: process.env.AIRTABLE_TABLE,
+    view: process.env.AIRTABLE_VIEW,
+    apiKey: process.env.AIRTABLE_API_KEY,
+    maxRecords: process.env.AIRTABLE_MAX_RECORDS
+};
 export default class App extends React.Component {
     render() {
         return (
