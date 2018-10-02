@@ -9,6 +9,11 @@ const config = {
     maxRecords: process.env.AIRTABLE_MAX_RECORDS
 };
 export default class App extends React.Component {
+    constructor() {
+        super();
+        this.state = { records: [] };
+        this.fetchAirtable = this.fetchAirtable.bind(this);
+    }
     render() {
         return (
             <View style={styles.container}>
