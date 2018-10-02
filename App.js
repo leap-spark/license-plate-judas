@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import env from 'env2';
+env('.env');
 
 const config = {
     base: process.env.AIRTABLE_BASE,
