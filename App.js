@@ -14,6 +14,10 @@ export default class App extends React.Component {
         this.state = { records: [] };
         this.fetchAirtable = this.fetchAirtable.bind(this);
     }
+
+    async componentDidMount() {
+        await this.fetchAirtable();
+    }
     render() {
         return (
             <View style={styles.container}>
