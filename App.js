@@ -8,7 +8,10 @@ const config = {
     apiKey: process.env.AIRTABLE_API_KEY,
     maxRecords: process.env.AIRTABLE_MAX_RECORDS
 };
+
+
 export default class App extends React.Component {
+
     constructor() {
         super();
         this.state = { records: [] };
@@ -35,10 +38,15 @@ export default class App extends React.Component {
             console.log(error);
         }
     }
+
     render() {
+        const { records } = this.state;
+
         return (
             <View style={styles.container}>
-            <Text>Open up App.js to start working on your app!</Text>
+                {records && records.length > 0 ? records.map(record =>
+                    <Text>{JSON.stringify(record)}</Text>
+                ) : <Text>Double-check that you have added your API key to .env.</Text>}
             </View>
         );
     }
