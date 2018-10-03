@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native';
 import API from '../../api';
 import config from '../../config';
