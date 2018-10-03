@@ -5,6 +5,7 @@ import API from '../../api';
 import config from '../../config';
 import hash from 'object-hash';
 
+
 export default class Login extends React.Component {
 
     constructor(props) {
@@ -24,7 +25,6 @@ export default class Login extends React.Component {
         const password = hash.MD5(this.state.password + config.salt);
         const records = await API.get('users', `?fields%5B%5D=username&fields%5B%5D=password&filterByFormula=AND(username%3D%22${this.state.username}%22,password%3D%22${password}%22)`);
 
-        // if records is an empty array, user isn't found
         if (!records.length) {
             this.setState({
                 errors: 'Username/Password Incorrect'
