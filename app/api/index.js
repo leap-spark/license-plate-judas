@@ -20,9 +20,10 @@ export default class API {
      * @param method    string The HTTP method to perform (get, post, update)
      * @param table     string The Airtable table to perform the action on
      * @param data      object An object of fields and values
+     * @param params    array  Additional params to pass with the request
      * @returns {Promise<*>}
      */
-    static async doRequest(method = this.isRequired(), table = this.isRequired(), data) {
+    static async doRequest(method = this.isRequired(), table = this.isRequired(), data, params = '') {
 
         const headers = {
             Accept: 'application/json',
@@ -31,12 +32,12 @@ export default class API {
         };
 
         // TODO: Do better validation here
-        if (data !== undefined) {
+        if (data !== undefined || data !== {}) {
             headers.fields = data;
         }
 
         try {
-            const response = await fetch(`https://api.airtable.com/v0/${config.base}/${table}`, {
+            const response = await fetch(`https://api.airtable.com/v0/${config.base}/${table}${params}`, {
                 method,
                 headers,
             });
@@ -58,11 +59,12 @@ export default class API {
      *
      * @since 0.0.1
      *
-     * @param table     string The Airtable table to perform the action on
+     * @param table  string The Airtable table to perform the action on
+     * @param params string A string containing additional params
      * @returns {Promise<void>}
      */
-    static async get(table = this.isRequired()) {
-        const response = await this.doRequest('GET', table);
+    static async get(table = this.isRequired(), params) {
+        const response = await this.doRequest('GET', table, {}, params);
         const { records } = await response;
 
         return records;
@@ -75,11 +77,11 @@ export default class API {
      * @since 0.0.1
      *
      * @param table string The Airtable table to perform the action on
-     * @param data  object An object containing fields and values
+     * @param data  string An object containing fields and values
      * @returns {Promise<void>}
      */
-    static async post(table = this.isRequired(), data = this.isRequired()) {
-        const response = await this.doRequest('POST', table, data);
+    static async post(table = this.isRequired(), data = this.isRequired(), params) {
+        const response = await this.doRequest('POST', table, data, params);
         const { records } = await response;
 
         return records;
