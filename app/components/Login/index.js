@@ -24,10 +24,14 @@ export default class Login extends React.Component {
         const records = await API.get('users', `?fields%5B%5D=username&fields%5B%5D=password&filterByFormula=AND(username%3D%22${this.state.username}%22,password%3D%22${password}%22)`);
 
         // if records is an empty array, user isn't found
-        console.log(records[0]);
-        // go to the next view
-    }
+        if (!records.length) {
+            this.setState({
+                errors: 'Username/Password Incorrect'
+            });
+        }
 
+        // TODO: go to the next view
+    }
 
     render() {
         return (
