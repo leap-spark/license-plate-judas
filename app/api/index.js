@@ -81,11 +81,11 @@ export default class API {
     static async post(table, data) {
 
         if (table === '' || table === undefined) {
-            throw new Error('Table parameter required when invoking API.get');
+            throw new Error('Table parameter required when invoking API.post');
         }
 
         if (data === '' || data === undefined) {
-            throw new Error('Data parameter required when invoking API.get');
+            throw new Error('Data parameter required when invoking API.post');
         }
 
         const response = await this.doRequest('POST', table, data);
