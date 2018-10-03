@@ -34,18 +34,29 @@ export default class Login extends React.Component {
         // TODO: go to the next view
     }
 
+
     render() {
+        const errors = this.state.errors ? (<Text>{ this.state.errors }</Text>) : null;
+
         return (
             <View>
+
+                { errors }
+
                 <TextInput
                     style={{ height: 40, width: 300 }}
                     placeholder="Username"
-                    onChangeText={(text) => this.setState({ username: text })}
+                    autoCapitalize="none"
+                    required={ true }
+                    autoFocus={ true }
+                    onChangeText={(text) => this.setState({ errors: undefined, username: text })}
                 />
                 <TextInput
                     style={{ height: 40, width: 300 }}
                     placeholder="Password"
-                    onChangeText={(text) => this.setState({ password: text })}
+                    required={ true }
+                    autoCapitalize="none"
+                    onChangeText={(text) => this.setState({ errors: undefined, password: text })}
                 />
                 <Button
                     onPress={this.onSubmit}
