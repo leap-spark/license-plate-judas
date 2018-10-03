@@ -24,8 +24,8 @@ export default class App extends React.Component {
 
         return (
             <View style={styles.container}>
-                {records && records.length > 0 ? records.map(record =>
-                    <Text>{JSON.stringify(record)}</Text>
+                {records && records.length > 0 ? records.map((record, i) =>
+                    <Text key={ i }>{ record.fields.plate_number }</Text>
                 ) : <Text>Double-check that you have added your API key to .env.</Text>}
             </View>
         );
