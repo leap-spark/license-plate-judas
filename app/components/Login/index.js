@@ -4,6 +4,8 @@ import { Button } from 'react-native';
 import API from '../../api';
 import config from '../../config';
 import hash from 'object-hash';
+import Home from '../../views/home';
+import { createStackNavigator } from 'react-navigation';
 
 
 export default class Login extends React.Component {
@@ -29,6 +31,9 @@ export default class Login extends React.Component {
             this.setState({
                 errors: 'Username/Password Incorrect'
             });
+        } else {
+          this.setState({ });
+          this.props.navigation.navigate('Home');
         }
 
         // TODO: go to the next view
