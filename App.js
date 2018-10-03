@@ -25,20 +25,8 @@ export default class App extends React.Component {
     }
 
     async fetchAirtable() {
-        try {
-            let response = await fetch(`https://api.airtable.com/v0/${config.base}/${config.table}?maxRecords=${config.maxRecords}`, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${config.apiKey}`
-                },
-            });
-            const { records } = await response.json();
-            this.setState({ records });
-        } catch (error) {
-            console.log(error);
-        }
+        const records = await API.get('plates');
+        this.setState({ records });
     }
 
     render() {
