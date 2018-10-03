@@ -1,6 +1,7 @@
 {
     "name": "license-plate-judas",
     "main": "node_modules/expo/AppEntry.js",
+    "version": "0.0.1",
     "private": true,
     "repository": "https://github.com/leap-spark/license-plate-judas",
     "scripts": {
