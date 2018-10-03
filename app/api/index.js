@@ -22,7 +22,7 @@ export default class API {
      * @param data      object An object of fields and values
      * @returns {Promise<*>}
      */
-    static async doRequest(method, table, data) {
+    static async doRequest(method = this.isRequired(), table = this.isRequired(), data) {
 
         const headers = {
             Accept: 'application/json',
@@ -48,6 +48,11 @@ export default class API {
     }
 
 
+    static isRequired() {
+        throw new Error('Parameter required when invoking API method');
+    }
+
+
     /**
      * Executes a GET request.
      *
@@ -56,12 +61,7 @@ export default class API {
      * @param table     string The Airtable table to perform the action on
      * @returns {Promise<void>}
      */
-    static async get(table) {
-
-        if (table === '' || table === undefined) {
-            throw new Error('Table parameter required when invoking API.get');
-        }
-
+    static async get(table = this.isRequired()) {
         const response = await this.doRequest('GET', table);
         const { records } = await response;
 
@@ -78,16 +78,7 @@ export default class API {
      * @param data  object An object containing fields and values
      * @returns {Promise<void>}
      */
-    static async post(table, data) {
-
-        if (table === '' || table === undefined) {
-            throw new Error('Table parameter required when invoking API.post');
-        }
-
-        if (data === '' || data === undefined) {
-            throw new Error('Data parameter required when invoking API.post');
-        }
-
+    static async post(table = this.isRequired(), data = this.isRequired()) {
         const response = await this.doRequest('POST', table, data);
         const { records } = await response;
 
