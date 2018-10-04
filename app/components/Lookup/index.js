@@ -7,7 +7,6 @@ import {
     View
 } from 'react-native';
 import Login from '../Login';
-import { createStackNavigator } from 'react-navigation';
 
 
 export default class Lookup extends Component {
@@ -15,8 +14,9 @@ export default class Lookup extends Component {
     constructor(props) {
         super(props);
     }
+    
+    
     render() {
-        console.log(this.props);
         return (
             <View>
                 <TextInput
