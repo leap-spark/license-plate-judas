@@ -33,7 +33,7 @@ export default class Login extends React.Component {
             return null;
         }
 
-        this.props.navigation.navigate('homeView');
+        this.props.navigation.navigate('HomeView');
     }
 
 
