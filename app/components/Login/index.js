@@ -3,7 +3,6 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import API from '../../api';
 import config from '../../config';
 import hash from 'object-hash';
-import { createStackNavigator } from 'react-navigation';
 
 
 export default class Login extends React.Component {
@@ -12,7 +11,7 @@ export default class Login extends React.Component {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
-        console.log(this.props.navigation.navigate('Login'));
+
         this.state = {
             username: '',
             password: '',
