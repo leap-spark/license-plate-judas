@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
-import Login from './app/components/Login';
-import Home from './app/views/Home';
+import homeView from './app/views/homeView';
 import { createStackNavigator } from 'react-navigation';
+import Lookup from "./app/components/Lookup";
+import Login from "./app/components/Login";
 
 const RootStack = createStackNavigator(
     {
-        Home: Login,
-        Lookup: Home,
+        homeView,
+        Lookup,
+        Login
     },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'homeView',
+        navigationOptions: {
+          headerTitle: "License Plate Judas",
+          headerStyle: {
+              backgroundColor: '#990010'
+          },
+          headerTintColor: '#fff',
+        }
     }
 );
 
