@@ -9,7 +9,7 @@
         "android": "cross-env expo start --android",
         "ios": "cross-env expo start --ios",
         "eject": "cross-env expo eject",
-        "lint": "cross-env eslint ./app/**/*.js"
+        "lint": "cross-env eslint **/*.js"
     },
     "dependencies": {
         "env2": "^2.2.2",
