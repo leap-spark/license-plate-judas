@@ -4,4 +4,3 @@ npm-debug.*
 .idea/*
 .idea
 .env
-yarn.lock
