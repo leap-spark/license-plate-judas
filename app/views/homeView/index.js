@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Lookup from '../../components/Lookup';
 
-export default class homeView extends Component {
+
+export default class HomeView extends Component {
     render() {
 
         //TODO: If logged in, continue, else display login
