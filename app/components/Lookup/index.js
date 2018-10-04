@@ -6,10 +6,17 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import Login from '../Login';
+import { createStackNavigator } from 'react-navigation';
 
 
 export default class Lookup extends Component {
+
+    constructor(props) {
+        super(props);
+    }
     render() {
+        console.log(this.props);
         return (
             <View>
                 <TextInput
@@ -20,6 +27,7 @@ export default class Lookup extends Component {
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={styles.button}
+                        onPress={() => this.props.navigator.navigate('Login')}
                     >
                         <Text> Lookup </Text>
                     </TouchableOpacity>

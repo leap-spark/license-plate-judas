@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Lookup from '../../components/Lookup';
 
-export default class Home extends Component {
+export default class homeView extends Component {
     render() {
 
         //TODO: If logged in, continue, else display login
@@ -13,7 +13,7 @@ export default class Home extends Component {
 
         return (
             <View style={styles.home}>
-                <Lookup />
+                <Lookup navigator={this.props.navigation} />
             </View>
         );
     }
