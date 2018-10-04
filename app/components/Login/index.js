@@ -1,11 +1,8 @@
 import React from 'react';
-import { Text, TextInput, View } from 'react-native';
-import { Button } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import API from '../../api';
 import config from '../../config';
 import hash from 'object-hash';
-import Home from '../../views/home';
-import { createStackNavigator } from 'react-navigation';
 
 
 export default class Login extends React.Component {
@@ -25,18 +22,18 @@ export default class Login extends React.Component {
 
     async onSubmit() {
         const password = hash.MD5(this.state.password + config.salt);
-        const records = await API.get('users', `?fields%5B%5D=username&fields%5B%5D=password&filterByFormula=AND(username%3D%22${this.state.username}%22,password%3D%22${password}%22)`);
+        const query = `?fields%5B%5D=username&fields%5B%5D=password&filterByFormula=AND(username%3D%22${this.state.username}%22,password%3D%22${password}%22)`;
+        const records = await API.get('users', query);
 
         if (!records.length) {
             this.setState({
                 errors: 'Username/Password Incorrect'
             });
-        } else {
-          this.setState({ });
-          this.props.navigation.navigate('Home');
+
+            return null;
         }
 
-        // TODO: go to the next view
+        this.props.navigation.navigate('Home');
     }
 
 
@@ -44,7 +41,7 @@ export default class Login extends React.Component {
         const errors = this.state.errors ? (<Text>{ this.state.errors }</Text>) : null;
 
         return (
-            <View>
+            <View style={ styles.container }>
 
                 { errors }
 
@@ -73,3 +70,12 @@ export default class Login extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+});
