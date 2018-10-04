@@ -5,7 +5,8 @@ import {
     TextInput,
     TouchableOpacity,
     View
-} from "react-native";
+} from 'react-native';
+
 
 export default class Lookup extends Component {
     render() {
@@ -29,7 +30,7 @@ export default class Lookup extends Component {
                     </TouchableOpacity>
                 </View>
             </View>
-        )
+        );
     }
 }
 
