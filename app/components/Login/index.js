@@ -26,7 +26,7 @@ export default class Login extends React.Component {
 
     _doLogin = async () => {
         const password = hash.MD5(this.state.password + config.salt);
-        const query = `?fields%5B%5D=username&fields%5B%5D=password&filterByFormula=AND(username%3D%22${this.state.username}%22,password%3D%22${password}%22)`;
+        const query = `?fields%5B%5D=token&filterByFormula=AND(username%3D%22${this.state.username}%22,password%3D%22${password}%22)`;
         const records = await API.get('users', query);
 
         if (records.length) {
