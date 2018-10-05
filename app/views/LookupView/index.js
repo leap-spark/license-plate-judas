@@ -4,7 +4,7 @@ import Lookup from '../../components/Lookup';
 import Authenticator from '../../components/Authenticator';
 
 
-export default class HomeView extends Component {
+export default class LookupView extends Component {
     render() {
         return (
             <View style={styles.home}>

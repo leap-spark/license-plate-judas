@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
 
-import HomeView from './app/views/HomeView';
+import LookupView from './app/views/LookupView';
 import Lookup from './app/components/Lookup';
 import Login from './app/components/Login';
 
@@ -9,7 +9,7 @@ import Login from './app/components/Login';
 const TopLevelNavigation = createStackNavigator(
     {
         Home: Login,
-        Lookup: HomeView,
+        Lookup: LookupView,
         Login,
     },
     {
