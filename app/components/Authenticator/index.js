@@ -1,47 +1,32 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { SecureStore } from 'expo';
+import { View } from 'react-native';
 import Storage from '../../lib/storage';
+import { withNavigation } from 'react-navigation';
 
 
-export default class Authenticator extends Component {
+class Authenticator extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            isAuthed: false,
-        };
     }
 
 
-    _checkIfAuthenticated = async () => {
-        return await Storage.get('UserAuthToken');
-    };
-
-
     async componentDidMount() {
-        const data = await this._checkIfAuthenticated();
+        const data = await Storage.get('UserAuthToken');
 
-        this.setState({
-            isAuthed: data,
-        });
+        if (!data) {
+            this.props.navigation.navigate('Home');
+        }
     }
 
 
     render() {
-        if (this.state.isAuthed) {
-            return (
-                <View>
-                    { this.props.children }
-                </View>
-            );
-        } else {
-            return (
-                <View>
-                    <Text>Hello</Text>
-                </View>
-            );
-        }
+        return (
+            <View>
+                { this.props.children }
+            </View>
+        );
     }
 }
+
+export default withNavigation(Authenticator);
