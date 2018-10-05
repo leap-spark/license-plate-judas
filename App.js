@@ -4,7 +4,8 @@ import Lookup from './app/components/Lookup';
 import Login from './app/components/Login';
 import { createStackNavigator } from 'react-navigation';
 
-const RootStack = createStackNavigator(
+
+const TopLevelNavigation = createStackNavigator(
     {
         Home: HomeView,
         Lookup,
@@ -23,7 +24,10 @@ const RootStack = createStackNavigator(
 );
 
 export default class App extends Component {
+
     render() {
-        return (<RootStack />);
+        return (
+            <TopLevelNavigation />
+        );
     }
 }
