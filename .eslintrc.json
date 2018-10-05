@@ -4,6 +4,7 @@
         "es6": true
     },
     "extends": "eslint:recommended",
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -11,11 +12,6 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "presets": [
-        "es2015",
-        "react",
-        "stage-1"
-    ],
     "plugins": [
         "react"
     ],
@@ -36,6 +32,7 @@
             "error",
             "always"
         ],
-        "no-unused-vars": 0
+        "no-unused-vars": 0,
+        "no-console": 0
     }
 }
