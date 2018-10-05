@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Lookup from '../../components/Lookup';
+import Authenticator from '../../components/Authenticator';
 
 
 export default class HomeView extends Component {
     render() {
-
-        //TODO: If logged in, continue, else display login
-
-        //TODO: Display passenger popup if
-        //TODO: i. Location enabled
-        //TODO: ii Movement faster than 10mph
-
         return (
             <View style={styles.home}>
-                <Lookup navigator={this.props.navigation} />
+                <Authenticator>
+                    <Lookup navigator={this.props.navigation} />
+                </Authenticator>
             </View>
         );
     }
