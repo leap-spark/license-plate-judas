@@ -30,7 +30,7 @@ export default class Authenticator extends Component {
 
 
     render() {
-        if (this.state.isAuthed !== null) {
+        if (this.state.isAuthed) {
             return (
                 <View>
                     { this.props.children }
