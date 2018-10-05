@@ -4,3 +4,5 @@ npm-debug.*
 .idea/*
 .idea
 .env
+
+yarn-error\.log
