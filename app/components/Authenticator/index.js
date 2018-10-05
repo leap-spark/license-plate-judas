@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { SecureStore } from 'expo';
+import Storage from '../../lib/storage';
 
 
 export default class Authenticator extends Component {
@@ -15,19 +16,7 @@ export default class Authenticator extends Component {
 
 
     _checkIfAuthenticated = async () => {
-        let data = null;
-
-        try {
-            const value = await SecureStore.getItemAsync('username');
-
-            if (value !== null) {
-                data = value[0];
-            }
-        } catch (error) {
-            console.error(error);
-        }
-
-        return data;
+        return await Storage.get('UserAuthToken');
     };
 
 
