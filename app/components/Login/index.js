@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import API from '../../api';
 import config from '../../config';
 import hash from 'object-hash';
+import Storage from '../../lib/storage';
 
 
-export default class Login extends React.Component {
+export default class Login extends Component {
 
     constructor(props) {
         super(props);
@@ -36,13 +37,14 @@ export default class Login extends React.Component {
         } else {
             await this._loginFail();
         }
+
         this.setState({ isLoggingIn: false });
     };
 
 
     _loginSuccess = async (data) => {
-        await AsyncStorage.setItem('@UserStore:data', JSON.stringify(data));
-        this.props.navigation.navigate('HomeView');
+        await Storage.set('UserAuthToken', data.fields.token);
+        this.props.navigation.navigate('Lookup');
     };
 
 
