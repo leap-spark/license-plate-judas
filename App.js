@@ -8,12 +8,12 @@ import Login from './app/components/Login';
 
 const TopLevelNavigation = createStackNavigator(
     {
-        Home: HomeView,
-        Lookup,
+        Home: Login,
+        Lookup: HomeView,
         Login,
     },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'Lookup',
         navigationOptions: {
             headerStyle: {
                 backgroundColor: '#AE0010',
