@@ -1,12 +1,11 @@
 import React from 'react';
-import { Button, StyleSheet, Text, TextInput, View, AsyncStorage } from 'react-native';
+import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import API from '../../api';
 import config from '../../config';
 import hash from 'object-hash';
 
 
 export default class Login extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -15,6 +14,7 @@ export default class Login extends React.Component {
             username: '',
             password: '',
             errors: undefined,
+            isLoggingIn: false,
         };
     }
 
@@ -25,6 +25,8 @@ export default class Login extends React.Component {
 
 
     _doLogin = async () => {
+        this.setState({ isLoggingIn: true });
+
         const password = hash.MD5(this.state.password + config.salt);
         const query = `?fields%5B%5D=token&filterByFormula=AND(username%3D%22${this.state.username}%22,password%3D%22${password}%22)`;
         const records = await API.get('users', query);
@@ -34,6 +36,7 @@ export default class Login extends React.Component {
         } else {
             await this._loginFail();
         }
+        this.setState({ isLoggingIn: false });
     };
 
 
@@ -53,8 +56,12 @@ export default class Login extends React.Component {
     render() {
         const errors = this.state.errors ? (<Text>{ this.state.errors }</Text>) : null;
 
+        // TODO: Fix this so its floating in the center of screen
+        const loading = this.state.isLoggingIn ? (<ActivityIndicator size="large" color="#0000ff" />) : null;
+
         return (
             <View style={ styles.container }>
+                { loading }
 
                 { errors }
 
