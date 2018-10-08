@@ -8,10 +8,17 @@ const RootStack = createStackNavigator(
     {
         Home: HomeView,
         Lookup,
-        Login
+        Login,
     },
     {
         initialRouteName: 'Home',
+        navigationOptions: {
+            headerStyle: {
+                backgroundColor: '#AE0010',
+            },
+            headerTintColor: '#fff',
+            headerTitle: 'License Plate Judas',
+        }
     }
 );
 
