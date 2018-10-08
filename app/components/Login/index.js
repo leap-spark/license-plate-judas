@@ -24,13 +24,13 @@ export default class Login extends React.Component {
     };
 
 
-    _doLogin = async () => {
-        const password = hash.MD5(this.state.password + config.salt);
-        const query = `?fields%5B%5D=username&fields%5B%5D=password&filterByFormula=AND(username%3D%22${this.state.username}%22,password%3D%22${password}%22)`;
-        const records = await API.get('users', query);
+    _doLogin = async (e) => {
+        e.preventDefault();
 
-        if (records.length) {
-            await this._loginSuccess(records[0]);
+        await firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password).catch((error) => console.log(error));
+
+        if (firebase.auth().currentUser) {
+            await this._loginSuccess();
         } else {
             await this._loginFail();
         }
