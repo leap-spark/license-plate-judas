@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, StyleSheet, Text, TextInput, View, AsyncStorage } from 'react-native';
-import API from '../../api';
-import config from '../../config';
-import hash from 'object-hash';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { SecureStore } from 'expo';
+import firebase from '../../api';
 
 
 export default class Login extends React.Component {
@@ -24,13 +23,13 @@ export default class Login extends React.Component {
     };
 
 
-    _doLogin = async () => {
-        const password = hash.MD5(this.state.password + config.salt);
-        const query = `?fields%5B%5D=username&fields%5B%5D=password&filterByFormula=AND(username%3D%22${this.state.username}%22,password%3D%22${password}%22)`;
-        const records = await API.get('users', query);
+    _doLogin = async (e) => {
+        e.preventDefault();
 
-        if (records.length) {
-            await this._loginSuccess(records[0]);
+        await firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password).catch((error) => console.log(error));
+
+        if (firebase.auth().currentUser) {
+            await this._loginSuccess();
         } else {
             await this._loginFail();
         }
@@ -38,8 +37,8 @@ export default class Login extends React.Component {
 
 
     _loginSuccess = async (data) => {
-        await AsyncStorage.setItem('@UserStore:data', JSON.stringify(data));
-        this.props.navigation.navigate('HomeView');
+        await SecureStore.setItemAsync('UserStore:data', JSON.stringify(data));
+        this.props.navigation.navigate('Lookup');
     };
 
 
