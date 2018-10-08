@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
 
 import LookupView from './app/views/LookupView';
-import Lookup from './app/components/Lookup';
-import Login from './app/components/Login';
+import LoginView from './app/views/LoginView';
 
 
 const TopLevelNavigation = createStackNavigator(
     {
-        Home: Login,
+        Home: LoginView,
         Lookup: LookupView,
-        Login,
+        Login: LoginView,
     },
     {
-        initialRouteName: 'Lookup',
+        initialRouteName: 'Home',
         navigationOptions: {
             headerStyle: {
                 backgroundColor: '#AE0010',
