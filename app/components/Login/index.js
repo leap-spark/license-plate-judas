@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, StyleSheet, Text, TextInput, View, AsyncStorage } from 'react-native';
-import API from '../../api';
-import config from '../../config';
-import hash from 'object-hash';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { SecureStore } from 'expo';
+import firebase from '../../api';
 
 
 export default class Login extends React.Component {
@@ -38,8 +37,8 @@ export default class Login extends React.Component {
 
 
     _loginSuccess = async (data) => {
-        await AsyncStorage.setItem('@UserStore:data', JSON.stringify(data));
-        this.props.navigation.navigate('HomeView');
+        await SecureStore.setItemAsync('UserStore:data', JSON.stringify(data));
+        this.props.navigation.navigate('Lookup');
     };
 
 
