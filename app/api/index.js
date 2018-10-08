@@ -76,8 +76,9 @@ export default class API {
      *
      * @since 0.0.1
      *
-     * @param table string The Airtable table to perform the action on
-     * @param data  string An object containing fields and values
+     * @param table string  The Airtable table to perform the action on
+     * @param data  string  An object containing fields and values
+     * @param params string URL encoded params
      * @returns {Promise<void>}
      */
     static async post(table = this.isRequired(), data = this.isRequired(), params) {
