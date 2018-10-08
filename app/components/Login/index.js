@@ -27,7 +27,7 @@ export default class Login extends Component {
         await Storage.set('UserAuthToken', '');
 
         this.setState({
-            username: '',
+            email: '',
             password: '',
             errors: undefined,
             isDoingAction: false,
@@ -41,6 +41,8 @@ export default class Login extends Component {
         const password = hash.MD5(this.state.password + config.salt);
         const query = `?fields%5B%5D=token&filterByFormula=AND(email%3D%22${this.state.email}%22,password%3D%22${password}%22)`;
         const records = await API.get('users', query);
+
+        console.log(records);
 
         if (records.length) {
             await this._loginSuccess(records[0]);
@@ -62,7 +64,9 @@ export default class Login extends Component {
                 password
             }
         });
+
         console.log(records);
+
         if (records.length) {
             await this._loginSuccess(records[0]);
         } else {
@@ -95,7 +99,7 @@ export default class Login extends Component {
                     autoCapitalize="none"
                     required={ true }
                     autoFocus={ true }
-                    onChangeText={(text) => this.setState({ errors: undefined, username: text })}
+                    onChangeText={(text) => this.setState({ errors: undefined, email: text })}
                 />
                 <TextInput
                     style={{ height: 40, width: 300 }}
