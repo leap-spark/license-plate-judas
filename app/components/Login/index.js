@@ -20,8 +20,10 @@ export default class Login extends Component {
     }
 
 
-    _onSubmit = async () => {
-        await this._doLogin();
+    _doLogout = async () => {
+        await Storage.set('UserAuthToken', '');
+
+        this.setState({
     };
 
 
