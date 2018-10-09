@@ -1,7 +1,7 @@
-import React from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { SecureStore } from 'expo';
+import React, { Component } from 'react';
+import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import firebase from '../../api';
+import Storage from '../../lib/storage';
 
 
 export default class Login extends Component {
@@ -27,10 +27,6 @@ export default class Login extends Component {
         }
     }
 
-        await firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password).catch((error) => {
-            console.log(error.message);
-            this.setState({ errors: error.message });
-        });
 
     _handleErrorMessage = (error) => {
         alert(error.message);
