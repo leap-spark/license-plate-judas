@@ -21,8 +21,11 @@ export default class Login extends Component {
     }
 
 
-    _doLogin = async (e) => {
-        e.preventDefault();
+    async componentDidMount() {
+        if (await Storage.get('Token')) {
+            this.props.navigation.navigate('Lookup');
+        }
+    }
 
         await firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password).catch((error) => {
             console.log(error.message);
