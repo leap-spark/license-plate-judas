@@ -42,11 +42,17 @@ export default class Login extends Component {
         this.setState({ isDoingAction: false });
     };
 
+
+    _doLogin = async () => {
+        this._startActivityIndicators();
+
+        await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(this._handleErrorMessage);
+
         if (firebase.auth().currentUser) {
-            await this._loginSuccess(firebase.auth().currentUser);
+            await this._loginSuccess();
         }
 
-        this.setState({ isDoingAction: false });
+        this._endActivityIndicators();
     };
 
 
