@@ -56,38 +56,28 @@ export default class Login extends Component {
 
 
     _doRegistration = async () => {
-        this.setState({ isDoingAction: true });
+        this._startActivityIndicators();
 
-        const password = hash.MD5(this.state.password + config.salt);
-        const records = await API.post('users', {
-            fields: {
-                email: this.state.username,
-                password
-            }
-        });
-
-        console.log(records);
-
-        if (records.length) {
-            await this._loginSuccess(records[0]);
-        } else {
-            await this._loginFail();
+        if (this.state.password !== this.state.confirmPassword) {
+            alert('Passwords must match');
+            return;
         }
 
-        this.setState({ isDoingAction: false });
+        await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(this._handleErrorMessage);
+
+        if (firebase.auth().currentUser) {
+            await this._loginSuccess();
+        }
+
+        this._endActivityIndicators();
     };
 
 
-    _loginSuccess = async (data) => {
-        // await SecureStore.setItemAsync('UserStore:data', JSON.stringify(data));
+    _loginSuccess = async () => {
+        const token = await firebase.auth().currentUser.getIdToken();
+        await Storage.set('Token', token);
+
         this.props.navigation.navigate('Lookup');
-    };
-
-
-    _loginFail = async ({ message }) => {
-        await this.setState({
-            error: message
-        });
     };
 
 
