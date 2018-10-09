@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+
 import Lookup from '../../components/Lookup';
 import Authenticator from '../../components/Authenticator';
 
