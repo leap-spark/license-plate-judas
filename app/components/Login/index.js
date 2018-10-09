@@ -6,7 +6,6 @@ import firebase from '../../api';
 
 export default class Login extends React.Component {
 
-
     constructor(props) {
         super(props);
 
@@ -18,33 +17,29 @@ export default class Login extends React.Component {
     }
 
 
-    _onSubmit = async () => {
-        await this._doLogin();
-    };
-
-
     _doLogin = async (e) => {
         e.preventDefault();
 
-        await firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password).catch((error) => console.log(error));
+        await firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password).catch((error) => {
+            console.log(error.message);
+            this.setState({ errors: error.message });
+        });
 
         if (firebase.auth().currentUser) {
             await this._loginSuccess();
-        } else {
-            await this._loginFail();
         }
     };
 
 
     _loginSuccess = async (data) => {
-        await SecureStore.setItemAsync('UserStore:data', JSON.stringify(data));
+        // await SecureStore.setItemAsync('UserStore:data', JSON.stringify(data));
         this.props.navigation.navigate('Lookup');
     };
 
 
-    _loginFail = async () => {
+    _loginFail = async ({ message }) => {
         await this.setState({
-            errors: 'Username/Password Incorrect'
+            error: message
         });
     };
 
@@ -73,7 +68,7 @@ export default class Login extends React.Component {
                     onChangeText={(text) => this.setState({ errors: undefined, password: text })}
                 />
                 <Button
-                    onPress={this._onSubmit}
+                    onPress={this._doLogin}
                     title="Login"
                     color="#841584"
                     accessibilityLabel="Login to the app"
