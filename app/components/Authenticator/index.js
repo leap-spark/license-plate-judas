@@ -12,7 +12,7 @@ class Authenticator extends Component {
 
 
     async componentDidMount() {
-        const data = await Storage.get('UserAuthToken');
+        const data = await Storage.get('Token');
 
         if (!data) {
             this.props.navigation.navigate('Home');
