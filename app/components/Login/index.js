@@ -26,7 +26,7 @@ export default class Login extends React.Component {
         });
 
         if (firebase.auth().currentUser) {
-            await this._loginSuccess();
+            await this._loginSuccess(firebase.auth().currentUser);
         }
     };
 
