@@ -13,7 +13,6 @@ export default class Login extends Component {
             email: '',
             password: '',
             confirmPassword: '',
-            errors: undefined,
             isDoingAction: false,
             invalidateToken: false,
             formAction: 'register',
@@ -158,8 +157,6 @@ export default class Login extends Component {
 
 
     render() {
-        const errors = this.state.errors ? (<Text>{ this.state.errors }</Text>) : null;
-
         // TODO: Fix this so its floating in the center of screen or something
         const loadingIndicator = this.state.isDoingAction ? (<ActivityIndicator size="large" color="#0000ff" />) : null;
         let elements = null;
@@ -184,8 +181,6 @@ export default class Login extends Component {
         return (
             <View>
                 { loadingIndicator }
-
-                { errors }
 
                 { elements }
 
