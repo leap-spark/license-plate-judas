@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import API from '../../api';
-import config from '../../config';
-import hash from 'object-hash';
-import Storage from '../../lib/storage';
+import React from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { SecureStore } from 'expo';
+import firebase from '../../api';
 
 
 export default class Login extends Component {
@@ -23,31 +21,16 @@ export default class Login extends Component {
     }
 
 
-    _doLogout = async () => {
-        await Storage.set('UserAuthToken', '');
+    _doLogin = async (e) => {
+        e.preventDefault();
 
-        this.setState({
-            email: '',
-            password: '',
-            errors: undefined,
-            isDoingAction: false,
+        await firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password).catch((error) => {
+            console.log(error.message);
+            this.setState({ errors: error.message });
         });
-    };
 
-
-    _doLogin = async () => {
-        this.setState({ isDoingAction: true });
-
-        const password = hash.MD5(this.state.password + config.salt);
-        const query = `?fields%5B%5D=token&filterByFormula=AND(email%3D%22${this.state.email}%22,password%3D%22${password}%22)`;
-        const records = await API.get('users', query);
-
-        console.log(records);
-
-        if (records.length) {
-            await this._loginSuccess(records[0]);
-        } else {
-            await this._loginFail();
+        if (firebase.auth().currentUser) {
+            await this._loginSuccess(firebase.auth().currentUser);
         }
 
         this.setState({ isDoingAction: false });
@@ -78,14 +61,14 @@ export default class Login extends Component {
 
 
     _loginSuccess = async (data) => {
-        await Storage.set('UserAuthToken', data.fields.token);
+        // await SecureStore.setItemAsync('UserStore:data', JSON.stringify(data));
         this.props.navigation.navigate('Lookup');
     };
 
 
-    _loginFail = async () => {
+    _loginFail = async ({ message }) => {
         await this.setState({
-            errors: 'Username/Password Incorrect'
+            error: message
         });
     };
 
