@@ -32,6 +32,20 @@ export default class Login extends Component {
             this.setState({ errors: error.message });
         });
 
+    _handleErrorMessage = (error) => {
+        alert(error.message);
+    };
+
+
+    _startActivityIndicators = () => {
+        this.setState({ isDoingAction: true });
+    };
+
+
+    _endActivityIndicators = () => {
+        this.setState({ isDoingAction: false });
+    };
+
         if (firebase.auth().currentUser) {
             await this._loginSuccess(firebase.auth().currentUser);
         }
