@@ -23,6 +23,7 @@ export default class Lookup extends Component {
             return null;
         }
 
+        // TODO: Do something with this data. Should probably move this method into the Lookup Details view/components
         return await firebase.database().ref('/offenders_meta').child(this.state.plate + '/associated_reports').once('value')
             .then((snapshot) => snapshot.val());
     };
