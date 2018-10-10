@@ -1,21 +1,33 @@
-import React, {Component} from 'react';
-import {
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
-} from 'react-native';
-import Login from '../Login';
+import React, { Component } from 'react';
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+import Storage from '../../lib/storage';
+import firebase from '../../api';
 
 
 export default class Lookup extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            plate: ''
+        };
     }
-    
-    
+
+
+    _doSearch = async () => {
+        const offender = await firebase.database().ref('/offenders').child(this.state.plate).once('value')
+            .then((snapshot) => snapshot.val());
+
+        if (!offender) {
+            return null;
+        }
+
+        return await firebase.database().ref('/offenders_meta').child(this.state.plate + '/associated_reports').once('value')
+            .then((snapshot) => snapshot.val());
+    };
+
+
     _doReportSubmission = async () => {
 
         // TODO: We need to do some sanitation checks on the state.plate
