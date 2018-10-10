@@ -74,7 +74,7 @@ export default class Login extends Component {
 
 
     _loginSuccess = async () => {
-        const token = await firebase.auth().currentUser.getIdToken();
+        const token = await firebase.auth().currentUser.uid;
         await Storage.set('Token', token);
 
         this.props.navigation.navigate('Lookup');
