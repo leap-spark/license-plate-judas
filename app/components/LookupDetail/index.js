@@ -57,7 +57,7 @@ export default class LookupDetail extends Component {
                             <Text>{ i.timestamp }</Text>
                         </View>
                     );
-                }) : 'No reports found' }
+                }) : <Text>No reports found</Text> }
             </View>
         );
     }
