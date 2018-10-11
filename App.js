@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 import LookupView from './app/views/LookupView';
 import LookupDetailView from './app/views/LookupDetailView';
 import LoginView from './app/views/LoginView';
+import RegisterView from './app/views/RegisterView';
+import Authenticator from './app/components/Authenticator';
 
 
-const TopLevelNavigation = createStackNavigator(
+const AppStack = createStackNavigator(
     {
-        Home: LoginView,
+        Home: LookupView,
         Lookup: LookupView,
-        Login: LoginView,
-        LookupDetail: LookupDetailView
+        LookupDetail: LookupDetailView,
     },
     {
-        initialRouteName: 'Home',
         navigationOptions: {
             headerStyle: {
                 backgroundColor: '#AE0010',
@@ -25,8 +25,34 @@ const TopLevelNavigation = createStackNavigator(
     }
 );
 
-export default class App extends Component {
+const AuthStack = createStackNavigator(
+    {
+        Login: LoginView,
+        Register: RegisterView,
+    },
+    {
+        navigationOptions: {
+            headerStyle: {
+                backgroundColor: '#AE0010',
+            },
+            headerTintColor: '#fff',
+            headerTitle: 'Login',
+        }
+    }
+);
 
+const TopLevelNavigation = createSwitchNavigator(
+    {
+        AuthLoading: Authenticator,
+        App: AppStack,
+        Auth: AuthStack,
+    },
+    {
+        initialRouteName: 'AuthLoading',
+    }
+);
+
+export default class App extends Component {
     render() {
         return (
             <TopLevelNavigation />
