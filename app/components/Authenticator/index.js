@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { ActivityIndicator, StatusBar, View } from 'react-native';
 import Storage from '../../lib/storage';
 import { withNavigation } from 'react-navigation';
 
@@ -7,23 +7,21 @@ import { withNavigation } from 'react-navigation';
 class Authenticator extends Component {
 
     constructor(props) {
-        super(props);
+        super();
     }
 
 
     async componentDidMount() {
-        const data = await Storage.get('Token');
-
-        if (!data) {
-            this.props.navigation.navigate('Home');
-        }
+        const userToken = await Storage.get('Token');
+        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
     }
 
 
     render() {
         return (
             <View>
-                { this.props.children }
+                <ActivityIndicator />
+                <StatusBar barStyle="default" />
             </View>
         );
     }
