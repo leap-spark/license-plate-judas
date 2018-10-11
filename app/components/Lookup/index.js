@@ -16,16 +16,7 @@ export default class Lookup extends Component {
 
 
     _doSearch = async () => {
-        const offender = await firebase.database().ref('/offenders').child(this.state.plate).once('value')
-            .then((snapshot) => snapshot.val());
-
-        if (!offender) {
-            return null;
-        }
-
-        // TODO: Do something with this data. Should probably move this method into the Lookup Details view/components
-        return await firebase.database().ref('/offenders_meta').child(this.state.plate + '/associated_reports').once('value')
-            .then((snapshot) => snapshot.val());
+        this.props.navigator.navigate('LookupDetail', { plate: this.state.plate });
     };
 
 
