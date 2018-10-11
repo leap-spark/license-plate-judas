@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import LookupDetail from '../../components/LookupDetail';
-import Authenticator from '../../components/Authenticator';
 
 
 export default class LookupDetailView extends Component {
     render() {
         return (
             <View style={styles.home}>
-                <Authenticator>
-                    <LookupDetail navigator={this.props.navigation} />
-                </Authenticator>
+                <LookupDetail navigator={this.props.navigation} />
             </View>
         );
     }
