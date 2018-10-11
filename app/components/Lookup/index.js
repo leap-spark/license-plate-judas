@@ -81,7 +81,6 @@ export default class Lookup extends Component {
                     style={ styles.input }
                     placeholder="Enter License Plate"
                     maxLength={ 6 }
-                    autoCapitalize={ true }
                     required={ true }
                     autoFocus={ true }
                     onChangeText={ (plate) => this.setState({ plate }) }
