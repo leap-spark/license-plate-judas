@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { SecureStore } from 'expo';
 import Storage from '../../lib/storage';
 import firebase from '../../api';
 
@@ -68,6 +69,14 @@ export default class Lookup extends Component {
     render() {
         return (
             <View>
+                <Button
+                    onPress={ async () => {
+                        firebase.auth().signOut();
+                        await SecureStore.deleteItemAsync('Token');
+                        this.props.navigator.navigate('Auth');
+                    }}
+                    title="Signout"
+                />
                 <TextInput
                     style={ styles.input }
                     placeholder="Enter License Plate"
