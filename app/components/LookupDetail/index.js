@@ -46,18 +46,18 @@ export default class LookupDetail extends Component {
         return (
             <View>
                 <Text>Details</Text>
-                { this.state.reports.map((i, j) => {
+                { this.state.reports.length ? this.state.reports.map((i, j) => {
                     return (
                         <View key={j}>
-                            <Text>{i.plate_number}</Text>
-                            <Text>{i.mood}</Text>
-                            <Text>{i.reason}</Text>
-                            <Text>{i.reported_by}</Text>
-                            <Text>{i.location}</Text>
-                            <Text>{i.timestamp}</Text>
+                            <Text>{ i.plate_number }</Text>
+                            <Text>{ i.mood }</Text>
+                            <Text>{ i.reason }</Text>
+                            <Text>{ i.reported_by }</Text>
+                            <Text>{ i.location }</Text>
+                            <Text>{ i.timestamp }</Text>
                         </View>
                     );
-                })}
+                }) : 'No reports found' }
             </View>
         );
     }
