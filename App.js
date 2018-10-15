@@ -5,6 +5,7 @@ import LookupView from './app/views/LookupView';
 import LookupDetailView from './app/views/LookupDetailView';
 import LoginView from './app/views/LoginView';
 import MoodView from './app/views/MoodView';
+import ReasonView from './app/views/ReasonView';
 import FinishView from './app/views/FinishView';
 import RegisterView from './app/views/RegisterView';
 
@@ -17,12 +18,13 @@ const AppStack = createStackNavigator(
         Lookup: LookupView,
         LookupDetail: LookupDetailView,
         Mood: MoodView,
+        Reason: ReasonView,
         Finish: FinishView,
     },
     {
         navigationOptions: {
             headerStyle: {
-                backgroundColor: '#AE0010',
+                backgroundColor: '#AE0011',
             },
             headerTintColor: '#fff',
             headerTitle: 'License Plate Judas',
