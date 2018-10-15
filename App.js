@@ -5,7 +5,9 @@ import LookupView from './app/views/LookupView';
 import LookupDetailView from './app/views/LookupDetailView';
 import LoginView from './app/views/LoginView';
 import MoodView from './app/views/MoodView';
+import FinishView from './app/views/FinishView';
 import RegisterView from './app/views/RegisterView';
+
 import Authenticator from './app/components/Authenticator';
 
 
@@ -15,6 +17,7 @@ const AppStack = createStackNavigator(
         Lookup: LookupView,
         LookupDetail: LookupDetailView,
         Mood: MoodView,
+        Finish: FinishView,
     },
     {
         navigationOptions: {
