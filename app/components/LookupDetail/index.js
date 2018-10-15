@@ -6,6 +6,8 @@ import firebase from '../../api';
 
 export default class LookupDetail extends Component {
 
+    detailLookupLimit = 50;
+
     constructor(props) {
         super(props);
 
@@ -27,6 +29,7 @@ export default class LookupDetail extends Component {
         await firebase.database().ref('/reports')
             .orderByChild('plate_number')
             .equalTo(plate.toLowerCase())
+            .limitToLast(this.detailLookupLimit)
             .once('value', (snapshot) => {
                 snapshot.forEach((childSnapshot) => {
                     reportsNormalized.push({
@@ -38,7 +41,7 @@ export default class LookupDetail extends Component {
 
         await this.setState({
             reports: reportsNormalized
-        })
+        });
     };
 
 
