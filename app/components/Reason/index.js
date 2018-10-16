@@ -34,24 +34,36 @@ export default class Reason extends Component {
 
 
     render() {
+        const reasonElements = this.reasons.map((reason, i) => {
+            return (
+                <TouchableOpacity style={ styles.item } key={ i } onPress={ () => this._doSetReason(reason.id) }>
+                    <Text>{ reason.name }</Text>
+                </TouchableOpacity>
+            );
+        });
+
         return (
-            <View>
-                <TouchableOpacity onPress={ () => this._doSetReason('reason_1') }>
-                    <Text>Reason 1</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={ () => this._doSetReason('reason_2') }>
-                    <Text>Reason 2</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={ () => this._doSetReason('reason_3') }>
-                    <Text>Reason 3</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={ () => this._doSetReason('reason_4') }>
-                    <Text>Reason 4</Text>
-                </TouchableOpacity>
+            <View style={ styles.container }>
+                { reasonElements }
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start'
+    },
+    item: {
+        alignItems: 'center',
+        backgroundColor: '#ececec',
+        borderWidth: 1,
+        borderColor: 'black',
+        height: '25%',
+        justifyContent: 'center',
+        width: '50%'
+    }
+});
