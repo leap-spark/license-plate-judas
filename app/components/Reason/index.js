@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+
 
 export default class Reason extends Component {
+
+    reasons = [
+        { name: 'Slow', id: 'slow' },
+        { name: 'Speeds', id: 'speeds' },
+        { name: 'No Blinkers', id: 'no_blinkers' },
+        { name: 'Cut Off', id: 'cut_off' },
+        { name: 'Music Loud', id: 'music_loud' },
+        { name: 'Let Me Go', id: 'let_me_go' },
+        { name: 'Waved', id: 'waved' },
+        { name: 'Considerate', id: 'considerate' },
+    ];
+
 
     constructor(props) {
         super(props);
