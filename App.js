@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 import LookupView from './app/views/LookupView';
@@ -62,7 +63,9 @@ const TopLevelNavigation = createSwitchNavigator(
 export default class App extends Component {
     render() {
         return (
-            <TopLevelNavigation />
+            <PaperProvider>
+                <TopLevelNavigation />
+            </PaperProvider>
         );
     }
 }
