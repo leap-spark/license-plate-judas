@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
-import { SecureStore } from 'expo';
-import Storage from '../../lib/storage';
-import firebase from '../../api';
+import { StyleSheet, View } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 
 
 export default class Lookup extends Component {
@@ -29,35 +27,25 @@ export default class Lookup extends Component {
     render() {
         return (
             <View>
-                <Button
-                    onPress={ async () => {
-                        firebase.auth().signOut();
-                        await SecureStore.deleteItemAsync('Token');
-                        this.props.navigator.navigate('Auth');
-                    }}
-                    title="Signout"
-                />
+
                 <TextInput
-                    style={ styles.input }
                     placeholder="Enter License Plate"
                     maxLength={ 6 }
                     required={ true }
                     autoFocus={ true }
                     onChangeText={ (plate) => this.setState({ plate }) }
+                    mode="outlined"
                 />
-                <View style={styles.buttonContainer}>
+
+                <View style={ styles.buttonContainer }>
                     <Button
                         onPress={ this._doSearch }
-                        title="Search"
-                        accessibilityLabel="Search"
-                        style={styles.button}
-                    />
+                        mode="contained"
+                        accessibilityLabel="Search">Search</Button>
                     <Button
                         onPress={ this._doReportSubmission }
-                        title="Report"
-                        style={ styles.ghostBtn }
-                        accessibilityLabel="Report"
-                    />
+                        mode="contained"
+                        accessibilityLabel="Report">Report</Button>
                 </View>
             </View>
         );
@@ -65,32 +53,15 @@ export default class Lookup extends Component {
 }
 
 const styles = StyleSheet.create({
-    input: {
-        alignSelf: 'center',
-        width: 200,
+    container: {
+        flex: 1,
         backgroundColor: '#fff',
-        borderWidth: 0.5,
-        borderColor: '#777',
-        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         margin: 30,
-    },
-    button: {
-        backgroundColor: '#DDDDDD',
-        paddingTop: 12,
-        paddingBottom: 12,
-        paddingLeft: 24,
-        paddingRight: 24,
-    },
-    ghostBtn: {
-        borderWidth: 1,
-        backgroundColor: '#FFFFFF',
-        paddingTop: 12,
-        paddingBottom: 12,
-        paddingLeft: 24,
-        paddingRight: 24,
     }
 });
