@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import firebase from '../../api';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import firebase from '../../firebase';
 import Storage from '../../lib/storage';
+import { Button, TextInput } from 'react-native-paper';
 
 
 export default class Login extends Component {
@@ -63,44 +64,39 @@ export default class Login extends Component {
     };
 
 
-    _renderLoginFields = () => {
-        return (
-            <View>
-                <TextInput
-                    style={{ height: 40, width: 300 }}
-                    placeholder="Username"
-                    autoCapitalize="none"
-                    required={ true }
-                    autoFocus={ true }
-                    onChangeText={(text) => this.setState({ errors: undefined, email: text })}
-                />
-                <TextInput
-                    style={{ height: 40, width: 300 }}
-                    placeholder="Password"
-                    required={ true }
-                    autoCapitalize="none"
-                    onChangeText={(text) => this.setState({ errors: undefined, password: text })}
-                />
-                <Button
-                    onPress={this._doLogin}
-                    title="Login"
-                    color="#841584"
-                    accessibilityLabel="Login to the app"
-                />
-            </View>
-        );
-    };
-
-
     render() {
         // TODO: Fix this so its floating in the center of screen or something
         const loadingIndicator = this.state.isDoingAction ? (<ActivityIndicator size="large" color="#0000ff" />) : null;
 
         return (
-            <View>
+            <View style={ styles.container }>
                 { loadingIndicator }
 
-                { this._renderLoginFields() }
+                <TextInput
+                    placeholder="Username"
+                    autoCapitalize="none"
+                    required={ true }
+                    autoFocus={ true }
+                    mode="outlined"
+                    onChangeText={(text) => this.setState({ errors: undefined, email: text })}
+                />
+                <TextInput
+                    placeholder="Password"
+                    required={ true }
+                    autoCapitalize="none"
+                    mode="outlined"
+                    onChangeText={(text) => this.setState({ errors: undefined, password: text })}
+                />
+                <Button
+                    onPress={this._doLogin}
+                    mode="contained"
+                    style={{ marginTop: 25 }}
+                    accessibilityLabel="Login to the app">Login</Button>
+
+                <Button
+                    onPress={ () => this.props.navigation.navigate('Register') }
+                    mode="text"
+                    accessibilityLabel="Register">Register</Button>
             </View>
         );
     }
@@ -108,9 +104,9 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        alignContent: 'stretch',
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
+        width: require('Dimensions').get('window').width - 50
     }
 });
