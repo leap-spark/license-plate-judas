@@ -44,7 +44,6 @@ export default class Mood extends Component {
 
 const moodSharedStyle = {
     alignItems: 'center',
-    color: '#fff',
     flex: 1,
     justifyContent: 'center'
 };

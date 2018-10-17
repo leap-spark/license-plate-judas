@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-import firebase from '../../api';
+import firebase from '../../firebase';
 
 
 export default class LookupDetail extends Component {
