@@ -11,7 +11,7 @@ export default class Reason extends Component {
 
         this.state = {
             doingAction: true,
-            plate: this.props.navigator.getParam('plate'),
+            plate: this.props.navigator.getParam('plate').toUpperCase(),
             mood: this.props.navigator.getParam('mood'),
             reason: this.props.navigator.getParam('reason'),
         };
