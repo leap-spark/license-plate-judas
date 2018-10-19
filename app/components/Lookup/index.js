@@ -5,6 +5,7 @@ import { Button, TextInput } from 'react-native-paper';
 
 export default class Lookup extends Component {
 
+
     constructor(props) {
         super(props);
 
@@ -27,23 +28,21 @@ export default class Lookup extends Component {
     render() {
         return (
             <View>
-
                 <TextInput
                     placeholder="Enter License Plate"
-                    maxLength={ 6 }
-                    required={ true }
-                    autoFocus={ true }
-                    onChangeText={ (plate) => this.setState({ plate }) }
+                    maxLength={6}
+                    required={true}
+                    autoFocus={true}
+                    onChangeText={ (plate) => this.setState({ plate: plate.toUpperCase() }) }
                     mode="outlined"
                 />
-
                 <View style={ styles.buttonContainer }>
                     <Button
-                        onPress={ this._doSearch }
+                        onPress={this._doSearch}
                         mode="contained"
                         accessibilityLabel="Search">Search</Button>
                     <Button
-                        onPress={ this._doReportSubmission }
+                        onPress={this._doReportSubmission}
                         mode="contained"
                         accessibilityLabel="Report">Report</Button>
                 </View>
