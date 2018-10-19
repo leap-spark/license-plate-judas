@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { ActivityIndicator, View, Text } from 'react-native';
 
 import firebase from '../../firebase';
 
@@ -28,7 +28,7 @@ export default class LookupDetail extends Component {
 
         await firebase.database().ref('/reports')
             .orderByChild('plate_number')
-            .equalTo(plate.toLowerCase())
+            .equalTo(plate)
             .limitToLast(this.detailLookupLimit)
             .once('value', (snapshot) => {
                 snapshot.forEach((childSnapshot) => {
