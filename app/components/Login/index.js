@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import firebase from '../../firebase';
-import Storage from '../../lib/storage';
+import { Storage } from '../../lib';
 import { Button, TextInput } from 'react-native-paper';
 
 
