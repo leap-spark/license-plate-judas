@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import LookupView from './app/views/LookupView';
 import LookupDetailView from './app/views/LookupDetailView';
@@ -30,8 +31,20 @@ const AppStack = createStackNavigator(
 );
 
 const TabStack = createMaterialBottomTabNavigator({
-    Home: AppStack,
-    MyAccount: AccountView
+    Home: {
+        screen: AppStack,
+        navigationOptions: {
+            title: 'Lookup',
+            tabBarIcon: (<Icon name="search" size={20} color="#fff" />)
+        }
+    },
+    MyAccount: {
+        screen: AccountView,
+        navigationOptions: {
+            title: 'My Account',
+            tabBarIcon: (<Icon name="account-box" size={20} color="#fff" />)
+        }
+    }
 }, {
     initialRouteName: 'Home',
     activeColor: '#f0edf6',
