@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { ScrollView, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
-import { Button } from 'react-native-paper';
+import { Appbar, Button, Card, Paragraph, Title } from 'react-native-paper';
 import firebase from '../../firebase';
 import { API, Storage } from '../../lib';
 
@@ -20,55 +21,47 @@ export default class AccountView extends Component {
 
 
     async componentDidMount() {
-        await Promise.all([ this._getUserData(), this._getReports(this.state.userData.reports_submitted) ]);
+        await Promise.all([ this._getReports() ]).catch((error) => console.error(error));
     }
 
 
-    _getUserData = async () => {
-        const userID = await firebase.auth().currentUser.uid;
-        let userData = {};
-
-        await firebase.database().ref('/users_meta/' + userID)
-            .once('value', (snapshot) => {
-                userData = snapshot.val();
-            })
-            .catch((error) => console.error(error));
-
-        await this.setState({ userData });
+    _getReports = async () => {
+        const userData = await API.getUserData();
+        const reports = await API.getReports(userData.reports_submitted);
+        await this.setState({ reports, userData });
     };
 
 
-    _getReports = async (ids) => {
-        ids = Object.keys(ids);
-        let reports = [];
+    _logOut = async () => {
+        firebase.auth().signOut();
+        await Storage.delete('Token');
 
-        // This was 500ms faster than filtering the data on server
-        // See: https://stackoverflow.com/questions/35931526/speed-up-fetching-posts-for-my-social-network-app-by-using-query-instead-of-obse/35932786#35932786
-        await Promise.all(
-            ids.map(id => {
-                return firebase.database().ref('/reports/' + id).once('value', (snapshot) => reports.push(snapshot.val()))
-            })
-        );
-
-        await this.setState({ reports });
+        this.props.navigator.navigate('Auth');
     };
 
 
     render() {
         return (
-            <View style={styles.home}>
+            <ScrollView contentContainerstyle={styles.home}>
+                <Appbar>
+                    <Appbar.Action icon="call-made" onPress={this._logOut} />
+                </Appbar>
+
                 <Text>My Account</Text>
 
-                <Button
-                    onPress={ async () => {
-                        firebase.auth().signOut();
-                        await SecureStore.deleteItemAsync('Token');
-                        this.props.navigator.navigate('Auth');
-                    }}
-                    title="Signout">Sign Out</Button>
                 <Text>{this.state.userData.plate_number}</Text>
-                <Text>Reports Submitted: {this.state.userData.reports_submitted && this.state.userData.reports_submitted.length}</Text>
-            </View>
+
+                { this.state.reports.length ? this.state.reports.map((i, j) => {
+                    return (
+                        <Card key={j}>
+                            <Card.Content>
+                                <Title>{ i.reason }</Title>
+                                <Paragraph>{ i.mood }{ i.reported_by }{ i.location }{ i.timestamp }</Paragraph>
+                            </Card.Content>
+                        </Card>
+                    );
+                }) : <ActivityIndicator /> }
+            </ScrollView>
         );
     }
 }
