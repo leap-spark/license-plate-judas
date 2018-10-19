@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 
 import { Button } from 'react-native-paper';
 import firebase from '../../firebase';
-import { SecureStore } from 'expo';
+import { API, Storage } from '../../lib';
 
 
 export default class AccountView extends Component {

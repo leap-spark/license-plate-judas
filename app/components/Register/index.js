@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import firebase from '../../firebase';
-import Storage from '../../lib/storage';
+import { Storage } from '../../lib';
 
 
 export default class Login extends Component {
