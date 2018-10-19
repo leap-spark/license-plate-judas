@@ -44,4 +44,18 @@ export default class Storage {
 
         return data;
     }
+
+
+    /**
+     *
+     * @param key
+     * @returns {Promise<void>}
+     */
+    static async delete(key) {
+        try {
+            await SecureStore.deleteItemAsync(key);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }
