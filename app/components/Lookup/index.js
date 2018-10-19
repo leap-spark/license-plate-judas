@@ -32,7 +32,6 @@ export default class Lookup extends Component {
                     placeholder="Enter License Plate"
                     maxLength={6}
                     required={true}
-                    autoFocus={true}
                     onChangeText={ (plate) => this.setState({ plate: plate.toUpperCase() }) }
                     mode="outlined"
                 />
