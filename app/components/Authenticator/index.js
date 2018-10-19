@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, StatusBar, View } from 'react-native';
-import Storage from '../../lib/storage';
+import { Storage } from '../../lib';
 import { withNavigation } from 'react-navigation';
 
 
 class Authenticator extends Component {
 
     constructor(props) {
-        super();
+        super(props);
     }
 
 
