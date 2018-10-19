@@ -1,67 +1,44 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View, Text } from 'react-native';
+import { ActivityIndicator, ScrollView, Text } from 'react-native';
+import { Headline, Card, Title, Paragraph } from 'react-native-paper';
 
-import firebase from '../../firebase';
+import { API } from '../../lib';
 
 
 export default class LookupDetail extends Component {
-
-    detailLookupLimit = 50;
 
     constructor(props) {
         super(props);
 
         this.state = {
-            reports: []
+            reports: [],
+            paginateAt: '',
         };
     }
 
 
     async componentDidMount() {
-        await this._getReports();
-    }
-
-
-    _getReports = async () => {
         const plate = this.props.navigator.getParam('plate');
-        const reportsNormalized = [];
-
-        await firebase.database().ref('/reports')
-            .orderByChild('plate_number')
-            .equalTo(plate)
-            .limitToLast(this.detailLookupLimit)
-            .once('value', (snapshot) => {
-                snapshot.forEach((childSnapshot) => {
-                    reportsNormalized.push({
-                        ...childSnapshot.val()
-                    });
-                });
-            })
-            .catch((error) => console.error(error));
-
-        await this.setState({
-            reports: reportsNormalized
-        });
-    };
+        const reports = await API.getReportsForPlate(plate);
+        await this.setState({ reports });
+    }
 
 
     render() {
         return (
-            <View>
-                <Text>Details</Text>
+            <ScrollView style={{ flex: 1, paddingTop: 55 }}>
+                <Headline>{this.props.navigator.getParam('plate')}</Headline>
                 { this.state.reports.length ? this.state.reports.map((i, j) => {
                     return (
-                        <View key={j}>
-                            <Text>{ i.plate_number }</Text>
-                            <Text>{ i.mood }</Text>
-                            <Text>{ i.reason }</Text>
-                            <Text>{ i.reported_by }</Text>
-                            <Text>{ i.location }</Text>
-                            <Text>{ i.timestamp }</Text>
-                        </View>
+                        <Card key={j}>
+                            <Card.Content>
+                                <Title>{ i.reason }</Title>
+                                <Paragraph>{ i.mood }{ i.reported_by }{ i.location }{ i.timestamp }</Paragraph>
+                            </Card.Content>
+                        </Card>
                     );
-                }) : <Text>No reports found</Text> }
-            </View>
+                }) : <ActivityIndicator /> }
+            </ScrollView>
         );
     }
 }
