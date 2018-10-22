@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
-import Navigation from '../Navigation';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import TopBarNavigation from '../TopBarNavigation';
 import { withNavigation } from 'react-navigation';
 
 
@@ -20,24 +20,19 @@ class Wrapper extends Component {
         );
 
         return (
-            <ScrollView>
-                <Navigation navigation={this.props.navigation} />
+            <ScrollView contentContainerStyle={styles.container}>
+                <TopBarNavigation navigation={this.props.navigation} />
 
-                <View style={styles.home}>
-                    { childrenWithProps }
-                </View>
+                { childrenWithProps }
             </ScrollView>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    home: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
-
 export default withNavigation(Wrapper);
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    }
+});
