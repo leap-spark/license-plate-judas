@@ -8,7 +8,10 @@ import Wrapper from '../../components/Wrapper';
 export default class LookupDetailView extends Component {
 
     componentWillMount() {
-        this.props.navigation.setParams({ 'title': 'Viewing Details' });
+        this.props.navigation.setParams({
+            backEnabled: true,
+            title: 'Viewing Details'
+        });
     }
 
 

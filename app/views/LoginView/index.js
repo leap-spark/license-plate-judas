@@ -14,7 +14,10 @@ export default class LoginView extends Component {
 
 
     componentWillMount() {
-        this.props.navigation.setParams({ 'title': 'Login' });
+        this.props.navigation.setParams({
+            backEnabled: false,
+            title: 'Login'
+        });
     }
 
 
