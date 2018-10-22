@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, ActivityIndicator, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import { StyleSheet, ActivityIndicator, Text } from 'react-native';
 
-import { Appbar, Button, Card, Paragraph, Title } from 'react-native-paper';
-import firebase from '../../firebase';
-import { API, Storage } from '../../lib';
+import { Card, Paragraph, Title } from 'react-native-paper';
+import { API } from '../../lib';
+import Wrapper from '../../components/Wrapper';
 
 
 export default class AccountView extends Component {
@@ -32,21 +31,9 @@ export default class AccountView extends Component {
     };
 
 
-    _logOut = async () => {
-        firebase.auth().signOut();
-        await Storage.delete('Token');
-
-        this.props.navigator.navigate('Auth');
-    };
-
-
     render() {
         return (
-            <ScrollView contentContainerstyle={styles.home}>
-                <Appbar>
-                    <Appbar.Action icon="call-made" onPress={this._logOut} />
-                </Appbar>
-
+            <Wrapper>
                 <Text>My Account</Text>
 
                 <Text>{this.state.userData.plate_number}</Text>
@@ -61,7 +48,7 @@ export default class AccountView extends Component {
                         </Card>
                     );
                 }) : <ActivityIndicator /> }
-            </ScrollView>
+            </Wrapper>
         );
     }
 }

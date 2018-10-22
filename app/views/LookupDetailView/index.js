@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import LookupDetail from '../../components/LookupDetail';
+import Wrapper from '../../components/Wrapper';
 
 
 export default class LookupDetailView extends Component {
     render() {
         return (
-            <View style={styles.home}>
-                <LookupDetail navigator={this.props.navigation} />
-            </View>
+            <Wrapper>
+                <View style={styles.home}>
+                    <LookupDetail navigator={this.props.navigation} />
+                </View>
+            </Wrapper>
         );
     }
 }
