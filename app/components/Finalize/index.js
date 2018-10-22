@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, View, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import firebase from '../../firebase';
 
@@ -56,14 +57,23 @@ export default class Reason extends Component {
         await firebase.database().ref().update(updates).catch((error) => console.log(error)); // [6]
 
         this.setState({ doingAction: false });
+
+        this._redirect();
     }
+
+
+    _redirect = () => {
+        setTimeout(() => {
+            this.props.navigator.navigate('Lookup');
+        }, 2000);
+    };
 
 
     render() {
         return (
             <View>
                 <Text>Finalizing</Text>
-                { this.state.doingAction && <ActivityIndicator /> }
+                { this.state.doingAction ? <ActivityIndicator /> : <Icon name="done" size={70} color="green" /> }
             </View>
         );
     }
