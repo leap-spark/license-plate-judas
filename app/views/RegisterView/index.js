@@ -14,7 +14,10 @@ export default class RegisterView extends Component {
 
 
     componentWillMount() {
-        this.props.navigation.setParams({ 'title': 'Register' });
+        this.props.navigation.setParams({
+            backEnabled: false,
+            title: 'Register'
+        });
     }
 
 

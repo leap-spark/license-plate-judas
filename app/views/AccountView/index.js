@@ -19,7 +19,10 @@ export default class AccountView extends Component {
     }
 
     componentWillMount() {
-        this.props.navigation.setParams({ 'title': 'My Account' });
+        this.props.navigation.setParams({
+            backEnabled: true,
+            title: 'My Account'
+        });
     }
 
     async componentDidMount() {

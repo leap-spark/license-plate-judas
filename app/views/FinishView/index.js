@@ -8,7 +8,10 @@ import Wrapper from '../../components/Wrapper';
 export default class FinishView extends Component {
 
     componentWillMount() {
-        this.props.navigation.setParams({ 'title': 'Finishing Up' });
+        this.props.navigation.setParams({
+            backEnabled: false,
+            title: 'Finishing Up'
+        });
     }
 
 

@@ -7,7 +7,10 @@ import Wrapper from '../../components/Wrapper';
 export default class LookupView extends Component {
 
     componentWillMount() {
-        this.props.navigation.setParams({ 'title': 'Lookup A Plate' });
+        this.props.navigation.setParams({
+            backEnabled: false,
+            title: 'Lookup A Plate'
+        });
     }
 
 

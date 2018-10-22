@@ -8,7 +8,10 @@ import Wrapper from '../../components/Wrapper';
 export default class MoodView extends Component {
 
     componentWillMount() {
-        this.props.navigation.setParams({ 'title': 'Choose Your Mood' });
+        this.props.navigation.setParams({
+            backEnabled: true,
+            title: 'Choose Your Mood'
+        });
     }
 
 
