@@ -10,7 +10,7 @@ export default class Lookup extends Component {
         super(props);
 
         this.state = {
-            plate: ''
+            plate: false
         };
     }
 
@@ -39,10 +39,12 @@ export default class Lookup extends Component {
                     <Button
                         onPress={this._doSearch}
                         mode="contained"
+                        disabled={!this.state.plate}
                         accessibilityLabel="Search">Search</Button>
                     <Button
                         onPress={this._doReportSubmission}
                         mode="contained"
+                        disabled={!this.state.plate}
                         accessibilityLabel="Report">Report</Button>
                 </View>
             </View>
