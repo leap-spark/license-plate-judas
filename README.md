@@ -11,7 +11,10 @@ The convention to writing a new view is to:
 5. To render the correct title in the top bar navigation, set the title parameter on the navigation prop using the `componentWillMount` lifecycle method.
 ```javascript
 componentWillMount () {
-    this.props.navigation.setParams({ 'title': 'Some Title' });
+    this.props.navigation.setParams({
+        backEnabled: true,
+        title: 'Some Title' 
+    });
 }
 ```
 6. Lastly, ensure you pass the navigator prop onto your child components.
