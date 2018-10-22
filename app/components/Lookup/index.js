@@ -27,8 +27,9 @@ export default class Lookup extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <TextInput
+                    style={styles.input}
                     placeholder="Enter License Plate"
                     maxLength={6}
                     required={true}
@@ -53,11 +54,14 @@ export default class Lookup extends Component {
 }
 
 const styles = StyleSheet.create({
+    input: {
+        width: 200
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     buttonContainer: {
         flexDirection: 'row',
