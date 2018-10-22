@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, ActivityIndicator, Text } from 'react-native';
+import { StyleSheet, ActivityIndicator, Text, View } from 'react-native';
+import { Card, Headline, List, Paragraph, Title } from 'react-native-paper';
 
-import { Card, Paragraph, Title } from 'react-native-paper';
 import { API } from '../../lib';
 import Wrapper from '../../components/Wrapper';
 
@@ -18,6 +18,7 @@ export default class AccountView extends Component {
         };
     }
 
+
     componentWillMount() {
         this.props.navigation.setParams({
             backEnabled: true,
@@ -25,8 +26,9 @@ export default class AccountView extends Component {
         });
     }
 
+
     async componentDidMount() {
-        await Promise.all([ this._getReports() ]).catch((error) => console.error(error));
+        await this._getReports();
     }
 
 
@@ -37,23 +39,36 @@ export default class AccountView extends Component {
     };
 
 
+    _generateComponentList = () => {
+        return (
+            <List.Section title="Recent Submissions">
+                { this.state.reports.map((i, j) => {
+                    const mood = i.mood === 'happy' ? 'mood' : 'mood-bad';
+
+                    return (
+                        <List.Item
+                            key={j}
+                            title={i.plate_number + ' for ' + i.reason}
+                            description={i.location + ' @ ' + i.timestamp}
+                            left={ () => <List.Icon icon={mood} color="#000" /> }
+                        />
+                    );
+                }) }
+            </List.Section>
+        );
+    };
+
+
     render() {
         return (
             <Wrapper>
-                <Text>My Account</Text>
+                <View style={styles.home}>
+                    <Headline>My Account</Headline>
 
-                <Text>{this.state.userData.plate_number}</Text>
+                    <Text>Claimed Plate: {this.state.userData.claimed_license_plate}</Text>
 
-                { this.state.reports.length ? this.state.reports.map((i, j) => {
-                    return (
-                        <Card key={j}>
-                            <Card.Content>
-                                <Title>{ i.reason }</Title>
-                                <Paragraph>{ i.mood }{ i.reported_by }{ i.location }{ i.timestamp }</Paragraph>
-                            </Card.Content>
-                        </Card>
-                    );
-                }) : <ActivityIndicator /> }
+                    { this.state.reports.length ? this._generateComponentList() : <ActivityIndicator /> }
+                </View>
             </Wrapper>
         );
     }
@@ -63,7 +78,6 @@ const styles = StyleSheet.create({
     home: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        padding: 20
     },
 });
