@@ -16,11 +16,12 @@ export default class TopBarNavigation extends Component {
 
 
     render() {
+        const backButton = this.props.navigation.getParam('backEnabled') && (<Appbar.BackAction onPress={this._goBack} />);
+
         return (
             <Appbar.Header>
-                <Appbar.BackAction
-                    onPress={this._goBack}
-                />
+                {backButton}
+
                 <Appbar.Content
                     title={ this.props.navigation.getParam('title') || 'License Plate Judas' }
                 />
