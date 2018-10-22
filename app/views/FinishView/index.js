@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Finalize from '../../components/Finalize';
+import Wrapper from '../../components/Wrapper';
 
 
 export default class FinishView extends Component {
     render() {
         return (
-            <View style={styles.home}>
-                <Finalize navigator={this.props.navigation} />
-            </View>
+            <Wrapper>
+                <View style={styles.home}>
+                    <Finalize navigator={this.props.navigation} />
+                </View>
+            </Wrapper>
         );
     }
 }

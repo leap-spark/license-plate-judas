@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
 
 import Lookup from '../../components/Lookup';
+import Wrapper from '../../components/Wrapper';
 
 
 export default class LookupView extends Component {
     render() {
         return (
-            <View style={styles.home}>
+            <Wrapper>
                 <Lookup navigator={this.props.navigation} />
-            </View>
+            </Wrapper>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    home: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

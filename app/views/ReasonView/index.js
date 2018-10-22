@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Reason from '../../components/Reason';
+import Wrapper from '../../components/Wrapper';
 
 
 export default class MoodView extends Component {
     render() {
         return (
-            <View style={styles.home}>
-                <Reason navigator={this.props.navigation} />
-            </View>
+            <Wrapper>
+                <View style={styles.home}>
+                    <Reason navigator={this.props.navigation} />
+                </View>
+            </Wrapper>
         );
     }
 }

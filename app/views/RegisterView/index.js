@@ -1,19 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 import Register from '../../components/Register';
+import Wrapper from '../../components/Wrapper';
 
 
 // TODO: Needs styling
 export default (props) => (
-    <View style={styles.home}>
-        <Register navigation={ props.navigation } />
+    <Wrapper>
+        <View style={styles.home}>
+            <Register navigation={ props.navigation } />
 
-        <TouchableOpacity onPress={ () => props.navigation.navigate('Login') }>
-            <Text>
-                Login
-            </Text>
-        </TouchableOpacity>
-    </View>
+            <TouchableOpacity onPress={ () => props.navigation.navigate('Login') }>
+                <Text>
+                    Login
+                </Text>
+            </TouchableOpacity>
+        </View>
+    </Wrapper>
 );
 
 const styles = StyleSheet.create({
