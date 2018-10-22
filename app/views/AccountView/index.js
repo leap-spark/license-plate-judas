@@ -18,6 +18,9 @@ export default class AccountView extends Component {
         };
     }
 
+    componentWillMount() {
+        this.props.navigation.setParams({ 'title': 'My Account' });
+    }
 
     async componentDidMount() {
         await Promise.all([ this._getReports() ]).catch((error) => console.error(error));
