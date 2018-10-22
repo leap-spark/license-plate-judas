@@ -9,7 +9,7 @@ export default class API {
 
         try {
             ids = await firebase.database().ref(`/offenders_meta/${plate}/associated_reports`).once('value');
-            reports = await firebase.LPJ.getReports(ids.val());
+            reports = await API.getReports(ids.val());
         } catch (error) {
             throw new Error(error);
         }
