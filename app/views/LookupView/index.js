@@ -5,6 +5,12 @@ import Wrapper from '../../components/Wrapper';
 
 
 export default class LookupView extends Component {
+
+    componentWillMount() {
+        this.props.navigation.setParams({ 'title': 'Lookup A Plate' });
+    }
+
+
     render() {
         return (
             <Wrapper>

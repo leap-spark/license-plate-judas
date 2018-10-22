@@ -6,6 +6,12 @@ import Wrapper from '../../components/Wrapper';
 
 
 export default class MoodView extends Component {
+
+    componentWillMount() {
+        this.props.navigation.setParams({ 'title': 'Choose A Reason' });
+    }
+
+
     render() {
         return (
             <Wrapper>
