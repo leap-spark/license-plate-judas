@@ -1,29 +1,20 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 export default class Mood extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            plate: '',
-            mood: '',
-        };
     }
 
 
-    async componentDidMount() {
-        await this.setState({
-            plate: this.props.navigation.getParam('plate')
+    _setMood = (mood) => {
+        this.props.navigation.navigate('Reason', {
+            plate: this.props.navigation.getParam('plate'),
+            mood,
         });
-    }
-
-
-    _doSetMood = async (mood) => {
-        await this.setState({ mood });
-        this.props.navigation.navigate('Reason', { ...this.state });
     };
 
 
