@@ -65,8 +65,6 @@ export default class AccountView extends Component {
                 <View style={styles.home}>
                     <Headline>My Account</Headline>
 
-                    <Text>Claimed Plate: {this.state.userData.claimed_license_plate}</Text>
-
                     { this.state.reports.length ? this._generateComponentList() : <ActivityIndicator /> }
                 </View>
             </Wrapper>
