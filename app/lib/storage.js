@@ -33,16 +33,12 @@ export default class Storage {
      * @returns {Promise<*|boolean>}
      */
     static async set(key, value) {
-        let data = true;
-
         try {
-            data = await SecureStore.setItemAsync(key, value);
+            await SecureStore.setItemAsync(key, value);
         } catch (error) {
+            // TODO: Do something useful with this error
             console.error(error);
-            data = false;
         }
-
-        return data;
     }
 
 
@@ -55,6 +51,7 @@ export default class Storage {
         try {
             await SecureStore.deleteItemAsync(key);
         } catch (error) {
+            // TODO: Do something useful with this error
             console.error(error);
         }
     }
