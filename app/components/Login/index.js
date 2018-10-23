@@ -46,7 +46,7 @@ export default class Login extends Component {
     _doLogin = async () => {
         this._startActivityIndicators();
 
-        await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(this._handleErrorMessage);
+        await API.signInUser(this.state.email, this.state.password);
 
         this._endActivityIndicators();
 
