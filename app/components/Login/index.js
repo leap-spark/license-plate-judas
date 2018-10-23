@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import firebase from '../../firebase';
-import { Storage } from '../../lib';
+import { API, Storage } from '../../lib';
 import { Button, TextInput } from 'react-native-paper';
 
+
+// TODO: Add HelperText components to username field to hint if invalid/malformed email address
+// @see https://callstack.github.io/react-native-paper/helper-text.html
+
+// TODO: Add HelperText components to password field to hint if illegal characters used
+// @see https://callstack.github.io/react-native-paper/helper-text.html
 
 export default class Login extends Component {
 
@@ -26,11 +32,6 @@ export default class Login extends Component {
             this.props.navigation.navigate('Lookup');
         }
     }
-
-
-    _handleErrorMessage = (error) => {
-        alert(error.message);
-    };
 
 
     _startActivityIndicators = () => {
