@@ -1,7 +1,36 @@
 import * as firebase from 'firebase';
 
+import Storage from './storage';
+
+
+function handleError(error) {
+    alert(error);
+}
 
 export default class API {
+
+    static async signInUser(email, password) {
+        try {
+            await firebase.auth().signInWithEmailAndPassword(email, password);
+        } catch (error) {
+            // TODO: Handle this error when implementing centralized error handler
+            handleError(error.message);
+            console.error(error);
+        }
+    }
+
+
+    static async signOutUser() {
+        return await Promise.all([
+            Storage.delete('Token'),
+            firebase.auth().signOut()
+        ]).catch((error) => {
+            // TODO: Do something useful with this error
+            handleError(error);
+            console.error(error);
+        });
+    }
+
 
     static async getReportsForPlate(plate) {
         let ids = [];
@@ -11,7 +40,8 @@ export default class API {
             ids = await firebase.database().ref(`/offenders_meta/${plate}/associated_reports`).once('value');
             reports = await API.getReports(ids.val());
         } catch (error) {
-            throw new Error(error);
+            // TODO: Do something useful with this error
+            console.error(error);
         }
 
         return reports;
@@ -22,7 +52,7 @@ export default class API {
         ids = Object.keys(ids);
 
         if (!ids.length) {
-            throw new Error('Argument `id` must be a non-empty array of strings');
+            return;
         }
 
         let reports = [];
@@ -33,7 +63,10 @@ export default class API {
             ids.map(id => {
                 return firebase.database().ref(`/reports/${id}`).limitToLast(limitToLast).once('value', (snapshot) => reports.push(snapshot.val()));
             })
-        ).catch(error => console.error(error));
+        ).catch((error) => {
+            // TODO: Do something useful with this error
+            console.error(error);
+        });
 
         return reports;
     }
