@@ -98,11 +98,10 @@ export default class Login extends Component {
 
     render() {
         // TODO: Fix this so its floating in the center of screen or something
-        const loadingIndicator = this.state.isDoingAction ? (<ActivityIndicator size="large" color="#0000ff" />) : null;
 
         return (
-            <View>
-                { loadingIndicator }
+            <View style={styles.container}>
+                <ActivityIndicator size="large" animating={this.state.isDoingAction} color="#0000ff" />
 
                 { this._renderRegisterFields() }
             </View>

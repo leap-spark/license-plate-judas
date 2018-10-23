@@ -66,14 +66,13 @@ export default class Login extends Component {
 
     render() {
         // TODO: Fix this so its floating in the center of screen or something
-        const loadingIndicator = this.state.isDoingAction ? (<ActivityIndicator size="large" color="#0000ff" />) : null;
 
         return (
-            <View style={ styles.container }>
-                { loadingIndicator }
+            <View style={styles.container}>
+                <ActivityIndicator size="large" color="#0000ff" animating={this.state.isDoingAction} />
 
                 <TextInput
-                    placeholder="Username"
+                    placeholder="Email"
                     autoCapitalize="none"
                     required={ true }
                     autoFocus={ true }
