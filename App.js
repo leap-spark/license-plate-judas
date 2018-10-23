@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createStackNavigator, createSwitchNavigator, createDrawerNavigator } from 'react-navigation';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import LookupView from './app/views/LookupView';
@@ -99,10 +99,21 @@ const TopLevelNavigation = createSwitchNavigator(
     }
 );
 
+
+const theme = {
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: '#2C3A47',
+        accent: '#55E6C1',
+    }
+};
+
 export default class App extends Component {
     render() {
         return (
-            <PaperProvider>
+            <PaperProvider theme={theme}>
                 <TopLevelNavigation />
             </PaperProvider>
         );
