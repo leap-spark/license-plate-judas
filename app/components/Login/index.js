@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native';
 import firebase from '../../firebase';
 import { API, Storage } from '../../lib';
 import { Button, TextInput } from 'react-native-paper';
-
 
 // TODO: Add HelperText components to username field to hint if invalid/malformed email address
 // @see https://callstack.github.io/react-native-paper/helper-text.html
@@ -108,6 +107,6 @@ const styles = StyleSheet.create({
         alignContent: 'stretch',
         flex: 1,
         justifyContent: 'center',
-        width: require('Dimensions').get('window').width - 50
+        width: Dimensions.get('window').width - 50
     }
 });
