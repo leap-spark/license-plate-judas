@@ -1,7 +1,7 @@
 import Storage from './storage';
 import API from './api';
 
-module.exports = {
+export {
     Storage,
     API,
 };
