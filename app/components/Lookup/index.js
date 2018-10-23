@@ -16,12 +16,12 @@ export default class Lookup extends Component {
 
 
     _doSearch = async () => {
-        this.props.navigator.navigate('LookupDetail', { plate: this.state.plate });
+        this.props.navigation.navigate('LookupDetail', { plate: this.state.plate });
     };
 
 
     _doReportSubmission = async () => {
-        this.props.navigator.navigate('Mood', { plate: this.state.plate });
+        this.props.navigation.navigate('Mood', { plate: this.state.plate });
     };
 
 

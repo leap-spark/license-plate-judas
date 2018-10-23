@@ -16,14 +16,14 @@ export default class Mood extends Component {
 
     async componentDidMount() {
         await this.setState({
-            plate: this.props.navigator.getParam('plate')
+            plate: this.props.navigation.getParam('plate')
         });
     }
 
 
     _doSetMood = async (mood) => {
         await this.setState({ mood });
-        this.props.navigator.navigate('Reason', { ...this.state });
+        this.props.navigation.navigate('Reason', { ...this.state });
     };
 
 

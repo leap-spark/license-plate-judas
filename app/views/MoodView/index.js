@@ -19,7 +19,7 @@ export default class MoodView extends Component {
         return (
             <Wrapper>
                 <View style={styles.home}>
-                    <Mood navigator={this.props.navigation} />
+                    <Mood navigation={this.props.navigation} />
                 </View>
             </Wrapper>
         );

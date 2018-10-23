@@ -12,9 +12,9 @@ export default class Reason extends Component {
 
         this.state = {
             doingAction: true,
-            plate: this.props.navigator.getParam('plate').toUpperCase(),
-            mood: this.props.navigator.getParam('mood'),
-            reason: this.props.navigator.getParam('reason'),
+            plate: this.props.navigation.getParam('plate').toUpperCase(),
+            mood: this.props.navigation.getParam('mood'),
+            reason: this.props.navigation.getParam('reason'),
         };
     }
 
@@ -64,7 +64,7 @@ export default class Reason extends Component {
 
     _redirect = () => {
         setTimeout(() => {
-            this.props.navigator.navigate('Lookup');
+            this.props.navigation.navigate('Lookup');
         }, 2000);
     };
 

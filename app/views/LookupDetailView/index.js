@@ -19,7 +19,7 @@ export default class LookupDetailView extends Component {
         return (
             <Wrapper>
                 <View style={styles.home}>
-                    <LookupDetail navigator={this.props.navigation} />
+                    <LookupDetail navigation={this.props.navigation} />
                 </View>
             </Wrapper>
         );

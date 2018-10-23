@@ -18,7 +18,7 @@ export default class LookupDetail extends Component {
 
 
     async componentDidMount() {
-        const plate = this.props.navigator.getParam('plate');
+        const plate = this.props.navigation.getParam('plate');
         const reports = await API.getReportsForPlate(plate);
         await this.setState({ reports });
     }
@@ -27,7 +27,7 @@ export default class LookupDetail extends Component {
     render() {
         return (
             <ScrollView style={{ flex: 1, paddingTop: 55 }}>
-                <Headline>{this.props.navigator.getParam('plate')}</Headline>
+                <Headline>{this.props.navigation.getParam('plate')}</Headline>
                 { this.state.reports.length ? this.state.reports.map((i, j) => {
                     return (
                         <Card key={j}>
