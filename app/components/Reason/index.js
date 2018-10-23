@@ -18,25 +18,22 @@ export default class Reason extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            plate: this.props.navigation.getParam('plate'),
-            mood: this.props.navigation.getParam('mood'),
-            reason: '',
-        };
     }
 
-
-    _doSetReason = async (reason) => {
-        await this.setState({ reason });
-        this.props.navigation.navigate('Finish', { ...this.state });
+    
+    _setReason = async (reason) => {
+        this.props.navigation.navigate('Finish', {
+            plate: this.props.navigation.getParam('plate'),
+            mood: this.props.navigation.getParam('mood'),
+            reason,
+        });
     };
 
 
     render() {
         const reasonElements = this.reasons.map((reason, i) => {
             return (
-                <TouchableOpacity style={ styles.item } key={ i } onPress={ () => this._doSetReason(reason.id) }>
+                <TouchableOpacity style={ styles.item } key={ i } onPress={ () => this._setReason(reason.id) }>
                     <Text>{ reason.name }</Text>
                 </TouchableOpacity>
             );
