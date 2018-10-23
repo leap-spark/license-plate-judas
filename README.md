@@ -22,7 +22,7 @@ componentWillMount () {
 render () {
     return (
         <Wrapper>
-            <YourComponent navigator={this.props.navigation} />
+            <YourComponent navigation={this.props.navigation} />
         </Wrapper>
     );
 }
