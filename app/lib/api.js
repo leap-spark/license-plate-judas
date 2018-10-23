@@ -43,18 +43,33 @@ export default class API {
 
 
     static async getReportsForPlate(plate) {
-        let ids = [];
-        let reports = [];
-
         try {
-            ids = await firebase.database().ref(`/offenders_meta/${plate}/associated_reports`).once('value');
-            reports = await API.getReports(ids.val());
+            const ids = await API.getListOfReportIds(plate);
+
+            if (!ids) {
+                return [];
+            }
+
+            return await API.getReports(ids);
         } catch (error) {
             // TODO: Do something useful with this error
             console.error(error);
         }
+    }
 
-        return reports;
+
+    static async getListOfReportIds(plate) {
+        try {
+            const ids = await firebase.database().ref(`/offenders_meta/${plate}/associated_reports`).once('value');
+
+            if (!ids) {
+                return false;
+            }
+
+            return ids.val();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 
@@ -86,7 +101,8 @@ export default class API {
         const userID = await firebase.auth().currentUser.uid;
 
         if (!userID) {
-            throw new Error('User is either not logged in or could not be retrieved from database');
+            // TODO: Do something here to handle the "error"
+            return;
         }
 
         let userData = await firebase.database().ref(`/users_meta/${userID}`).once('value');
