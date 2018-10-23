@@ -20,8 +20,8 @@ export default class Reason extends Component {
         super(props);
 
         this.state = {
-            plate: this.props.navigator.getParam('plate'),
-            mood: this.props.navigator.getParam('mood'),
+            plate: this.props.navigation.getParam('plate'),
+            mood: this.props.navigation.getParam('mood'),
             reason: '',
         };
     }
@@ -29,7 +29,7 @@ export default class Reason extends Component {
 
     _doSetReason = async (reason) => {
         await this.setState({ reason });
-        this.props.navigator.navigate('Finish', { ...this.state });
+        this.props.navigation.navigate('Finish', { ...this.state });
     };
 
 

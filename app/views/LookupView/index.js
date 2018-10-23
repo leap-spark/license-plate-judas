@@ -17,7 +17,7 @@ export default class LookupView extends Component {
     render() {
         return (
             <Wrapper>
-                <Lookup navigator={this.props.navigation} />
+                <Lookup navigation={this.props.navigation} />
             </Wrapper>
         );
     }

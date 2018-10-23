@@ -19,7 +19,7 @@ export default class FinishView extends Component {
         return (
             <Wrapper>
                 <View style={styles.home}>
-                    <Finalize navigator={this.props.navigation} />
+                    <Finalize navigation={this.props.navigation} />
                 </View>
             </Wrapper>
         );
