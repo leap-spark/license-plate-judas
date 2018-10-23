@@ -29,13 +29,15 @@ export default class Mood extends Component {
 
     render() {
         return (
-            <View style={ style.moods }>
-                <TouchableOpacity style={ style.happy } onPress={ () => this._doSetMood('happy') }>
-                    <Text>Happy</Text>
+            <View style={style.moods}>
+                <TouchableOpacity style={style.happy} onPress={ () => this._setMood('happy') }>
+                    <Icon name="mood" size={32} color="#fff" />
+                    <Text style={style.text}>Happy</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={ style.angry } onPress={ () => this._doSetMood('angry') }>
-                    <Text>Angry</Text>
+                <TouchableOpacity style={style.angry} onPress={ () => this._setMood('angry') }>
+                    <Icon name="mood-bad" size={32} color="#fff" />
+                    <Text style={style.text}>Angry</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -58,10 +60,15 @@ const style = StyleSheet.create({
     },
     angry: {
         ...moodSharedStyle,
-        backgroundColor: 'tomato'
+        backgroundColor: '#FD7272'
     },
     happy: {
         ...moodSharedStyle,
-        backgroundColor: 'green'
+        backgroundColor: '#58B19F'
+    },
+    text: {
+        color: '#fff',
+        fontSize: 32,
+        fontWeight: 'bold',
     }
 });
