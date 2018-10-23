@@ -20,6 +20,16 @@ export default class API {
     }
 
 
+    static async registerUser(email, password) {
+        try {
+            await firebase.auth().createUserWithEmailAndPassword(email, password);
+        } catch (error) {
+            handleError(error);
+            console.error(error);
+        }
+    }
+
+
     static async signOutUser() {
         return await Promise.all([
             Storage.delete('Token'),
