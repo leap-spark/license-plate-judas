@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
+
 import firebase from '../../firebase';
-import { Storage } from '../../lib';
+import { API, Storage } from '../../lib';
 
 
 export default class Login extends Component {
 
     constructor(props) {
-        super();
+        super(props);
 
         this.state = {
             email: '',
@@ -17,11 +19,6 @@ export default class Login extends Component {
             invalidateToken: false,
         };
     }
-
-
-    _handleErrorMessage = (error) => {
-        alert(error.message);
-    };
 
 
     _startActivityIndicators = () => {
@@ -35,14 +32,15 @@ export default class Login extends Component {
 
 
     _doRegistration = async () => {
-        this._startActivityIndicators();
-
+        
         if (this.state.password !== this.state.confirmPassword) {
-            alert('Passwords must match');
+            alert('Passwords do not match');
             return;
         }
 
-        await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(this._handleErrorMessage);
+        this._startActivityIndicators();
+
+        await API.registerUser(this.state.email, this.state.password);
 
         this._endActivityIndicators();
 
@@ -64,33 +62,36 @@ export default class Login extends Component {
         return (
             <View>
                 <TextInput
-                    style={{ height: 40, width: 300 }}
                     placeholder="Email"
                     autoCapitalize="none"
-                    required={ true }
-                    autoFocus={ true }
+                    required={true}
+                    mode="outlined"
                     onChangeText={(text) => this.setState({ errors: undefined, email: text })}
                 />
                 <TextInput
-                    style={{ height: 40, width: 300 }}
                     placeholder="Password"
-                    required={ true }
+                    required={true}
                     autoCapitalize="none"
+                    mode="outlined"
                     onChangeText={(text) => this.setState({ errors: undefined, password: text })}
                 />
                 <TextInput
-                    style={{ height: 40, width: 300 }}
                     placeholder="Repeat Password"
-                    required={ true }
+                    required={true}
                     autoCapitalize="none"
+                    mode="outlined"
                     onChangeText={(text) => this.setState({ errors: undefined, confirmPassword: text })}
                 />
                 <Button
                     onPress={this._doRegistration}
-                    title="Register"
-                    color="#841584"
-                    accessibilityLabel="Register"
-                />
+                    mode="contained"
+                    style={{ marginTop: 25 }}
+                    accessibilityLabel="Register a new account">Register</Button>
+
+                <Button
+                    onPress={ () => this.props.navigation.navigate('Login') }
+                    mode="text"
+                    accessibilityLabel="Register">Login</Button>
             </View>
         );
     };
@@ -111,9 +112,9 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        alignContent: 'stretch',
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
+        width: Dimensions.get('window').width - 50
     }
 });
