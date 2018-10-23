@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import { ActivityIndicator, View, StyleSheet, Text } from 'react-native';
 import { Headline, List } from 'react-native-paper';
 
 import { API } from '../../lib';
@@ -13,6 +13,7 @@ export default class LookupDetail extends Component {
         this.state = {
             reports: [],
             paginateAt: '',
+            doingAction: true,
         };
     }
 
@@ -20,7 +21,7 @@ export default class LookupDetail extends Component {
     async componentDidMount() {
         const plate = this.props.navigation.getParam('plate');
         const reports = await API.getReportsForPlate(plate);
-        await this.setState({ reports });
+        await this.setState({ reports, doingAction: false });
     }
 
 
@@ -45,15 +46,20 @@ export default class LookupDetail extends Component {
 
 
     render() {
+        const state = this.props.navigation.getParam('plate').substring(0, 2);
+        const plate = this.props.navigation.getParam('plate').slice(2);
+
         return (
             <View style={styles.container}>
                 <View style={styles.headerContainer}>
                     <Headline style={styles.header}>
-                        {this.props.navigation.getParam('plate')}
+                        {state} - {plate}
                     </Headline>
                 </View>
 
-                { this.state.reports.length ? this._generateComponentList() : <ActivityIndicator /> }
+                <ActivityIndicator animating={this.state.doingAction } />
+
+                { this.state.reports.length && !this.state.doingAction ? this._generateComponentList() : <Text>No Reports Found</Text>}
             </View>
         );
     }
