@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, ActivityIndicator, Text, View } from 'react-native';
-import { Card, Headline, List, Paragraph, Title } from 'react-native-paper';
+import { Headline, List } from 'react-native-paper';
 
 import { API } from '../../lib';
 import Wrapper from '../../components/Wrapper';
