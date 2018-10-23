@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import Register from '../../components/Register';
 
@@ -8,12 +8,6 @@ import Register from '../../components/Register';
 export default (props) => (
     <View style={styles.home}>
         <Register navigation={props.navigation} />
-
-        <TouchableOpacity onPress={ () =>props.navigation.navigate('Login') }>
-            <Text>
-                Login
-            </Text>
-        </TouchableOpacity>
     </View>
 );
 
