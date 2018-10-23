@@ -68,11 +68,18 @@ export default class Login extends Component {
                     mode="outlined"
                     onChangeText={(text) => this.setState({ errors: undefined, email: text })}
                 />
+                <HelperText
+                    type="error"
+                    visible={!validateEmail(this.state.email)}>
+                    Email Address isn't valid
+                </HelperText>
+
                 <TextInput
                     placeholder="Password"
                     required={true}
                     autoCapitalize="none"
                     mode="outlined"
+                    secureTextEntry={true}
                     onChangeText={(text) => this.setState({ errors: undefined, password: text })}
                 />
                 <TextInput
@@ -80,11 +87,20 @@ export default class Login extends Component {
                     required={true}
                     autoCapitalize="none"
                     mode="outlined"
+                    secureTextEntry={true}
                     onChangeText={(text) => this.setState({ errors: undefined, confirmPassword: text })}
                 />
+                <HelperText
+                    type="error"
+                    visible={this.state.password !== this.state.confirmPassword}>
+                    Passwords don't match
+                </HelperText>
+
                 <Button
                     onPress={this._doRegistration}
                     mode="contained"
+                    loading={this.state.isDoingAction}
+                    disabled={this.state.isDoingAction}
                     style={{ marginTop: 25 }}
                     accessibilityLabel="Register a new account">Register</Button>
 
