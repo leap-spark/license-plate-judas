@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, ScrollView, Text } from 'react-native';
-import { Headline, Card, Title, Paragraph } from 'react-native-paper';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import { Headline, List } from 'react-native-paper';
 
 import { API } from '../../lib';
 
@@ -24,21 +24,56 @@ export default class LookupDetail extends Component {
     }
 
 
+    _generateComponentList = () => {
+        return (
+            <List.Section title="Latest Reports">
+                { this.state.reports.map((i, j) => {
+                    const mood = i.mood === 'happy' ? 'mood' : 'mood-bad';
+
+                    return (
+                        <List.Item
+                            key={j}
+                            title={i.reason}
+                            description={i.location + ' @ ' + i.timestamp}
+                            left={ () => <List.Icon icon={mood} color="#000" /> }
+                        />
+                    );
+                }) }
+            </List.Section>
+        );
+    };
+
+
     render() {
         return (
-            <ScrollView style={{ flex: 1, paddingTop: 55 }}>
-                <Headline>{this.props.navigation.getParam('plate')}</Headline>
-                { this.state.reports.length ? this.state.reports.map((i, j) => {
-                    return (
-                        <Card key={j}>
-                            <Card.Content>
-                                <Title>{ i.reason }</Title>
-                                <Paragraph>{ i.mood }{ i.reported_by }{ i.location }{ i.timestamp }</Paragraph>
-                            </Card.Content>
-                        </Card>
-                    );
-                }) : <ActivityIndicator /> }
-            </ScrollView>
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Headline style={styles.header}>
+                        {this.props.navigation.getParam('plate')}
+                    </Headline>
+                </View>
+
+                { this.state.reports.length ? this._generateComponentList() : <ActivityIndicator /> }
+            </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'stretch',
+        alignSelf: 'stretch',
+        flex: 1,
+        flexDirection: 'column',
+        padding: 15,
+    },
+    headerContainer: {
+        alignSelf: 'stretch',
+        backgroundColor: '#efefef',
+        paddingVertical: 10,
+    },
+    header: {
+        alignSelf: 'center',
+        color: '#000',
+    },
+});
