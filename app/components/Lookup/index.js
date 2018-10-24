@@ -34,12 +34,12 @@ export default class Lookup extends Component {
                     selectedValue={this.state.stateISO}
                     style={{ height: 50, width: 250 }}
                     required={true}
-                    onValueChange={ (stateISO, itemIndex) => this.setState({ stateISO }) } />
+                    onValueChange={ (stateISO) => this.setState({ stateISO }) } />
 
                 <TextInput
                     style={styles.input}
                     placeholder="Enter License Plate"
-                    maxLength={6}
+                    maxLength={7}
                     required={true}
                     onChangeText={ (plate) => this.setState({ plate: this.state.stateISO + plate.toUpperCase() }) }
                     mode="outlined"
