@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, TextInput, HelperText } from 'react-native-paper';
 
 import firebase from '../../firebase';
-import { API, Storage } from '../../lib';
+import { API, Helpers, Storage } from '../../lib';
 
 
 export default class Login extends Component {
@@ -32,12 +32,6 @@ export default class Login extends Component {
 
 
     _doRegistration = async () => {
-        
-        if (this.state.password !== this.state.confirmPassword) {
-            alert('Passwords do not match');
-            return;
-        }
-
         this._startActivityIndicators();
 
         await API.registerUser(this.state.email, this.state.password);
@@ -70,7 +64,7 @@ export default class Login extends Component {
                 />
                 <HelperText
                     type="error"
-                    visible={!validateEmail(this.state.email)}>
+                    visible={!Helpers.isValidEmail(this.state.email)}>
                     Email Address isn't valid
                 </HelperText>
 
