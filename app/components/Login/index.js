@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native';
+import { Button, HelperText, TextInput } from 'react-native-paper';
+
 import firebase from '../../firebase';
-import { API, Storage } from '../../lib';
-import { Button, TextInput } from 'react-native-paper';
+import { API, Helpers, Storage } from '../../lib';
 
 // TODO: Add HelperText components to username field to hint if invalid/malformed email address
 // @see https://callstack.github.io/react-native-paper/helper-text.html
@@ -65,8 +66,6 @@ export default class Login extends Component {
 
 
     render() {
-        // TODO: Fix this so its floating in the center of screen or something
-
         return (
             <View style={styles.container}>
                 <ActivityIndicator size="large" color="#0000ff" animating={this.state.isDoingAction} />
@@ -74,21 +73,29 @@ export default class Login extends Component {
                 <TextInput
                     placeholder="Email"
                     autoCapitalize="none"
-                    required={ true }
-                    autoFocus={ true }
+                    required={true}
                     mode="outlined"
                     onChangeText={(text) => this.setState({ errors: undefined, email: text })}
                 />
+                <HelperText
+                    type="error"
+                    visible={!Helpers.isValidEmail(this.state.email)}>
+                    Email Address isn't valid
+                </HelperText>
+
                 <TextInput
                     placeholder="Password"
-                    required={ true }
+                    required={true}
                     autoCapitalize="none"
                     mode="outlined"
+                    secureTextEntry={true}
                     onChangeText={(text) => this.setState({ errors: undefined, password: text })}
                 />
                 <Button
                     onPress={this._doLogin}
                     mode="contained"
+                    loading={this.state.isDoingAction}
+                    disabled={this.state.isDoingAction}
                     style={{ marginTop: 25 }}
                     accessibilityLabel="Login to the app">Login</Button>
 
