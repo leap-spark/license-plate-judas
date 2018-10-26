@@ -1,3 +1,4 @@
+import uuid from 'uuid/v4';
 import * as firebase from 'firebase';
 
 import Storage from './storage';
@@ -10,23 +11,12 @@ function handleError(error) {
 export default class API {
 
     static async signInUser(email, password) {
-        try {
-            await firebase.auth().signInWithEmailAndPassword(email, password);
-        } catch (error) {
-            // TODO: Handle this error when implementing centralized error handler
-            handleError(error.message);
-            console.error(error);
-        }
+        return await firebase.auth().signInWithEmailAndPassword(email, password).catch(handleError);
     }
 
 
     static async registerUser(email, password) {
-        try {
-            await firebase.auth().createUserWithEmailAndPassword(email, password);
-        } catch (error) {
-            handleError(error);
-            console.error(error);
-        }
+        return await firebase.auth().createUserWithEmailAndPassword(email, password).catch(handleError);
     }
 
 
@@ -34,11 +24,7 @@ export default class API {
         return await Promise.all([
             Storage.delete('Token'),
             firebase.auth().signOut()
-        ]).catch((error) => {
-            // TODO: Do something useful with this error
-            handleError(error);
-            console.error(error);
-        });
+        ]).catch(handleError);
     }
 
 
@@ -50,7 +36,7 @@ export default class API {
                 return [];
             }
 
-            return await API.getReports(ids);
+            return await API.getReportsByIds(ids);
         } catch (error) {
             // TODO: Do something useful with this error
             console.error(error);
@@ -73,7 +59,7 @@ export default class API {
     }
 
 
-    static async getReports(ids, limitToLast = 50) {
+    static async getReportsByIds(ids, limitToLast = 50) {
         ids = Object.keys(ids);
 
         if (!ids.length) {
@@ -93,7 +79,10 @@ export default class API {
             console.error(error);
         });
 
-        return reports;
+        return reports.map((report) => {
+            report.uid = uuid();
+            return report;
+        });
     }
 
 
@@ -105,7 +94,7 @@ export default class API {
             return;
         }
 
-        let userData = await firebase.database().ref(`/users_meta/${userID}`).once('value');
+        let userData = await firebase.database().ref(`/users_meta/${userID}`).once('value').catch(handleError);
 
         return userData.val();
     }
