@@ -7,6 +7,11 @@ import Wrapper from '../../components/Wrapper';
 
 export default class LookupDetailView extends Component {
 
+    constructor(props) {
+        super(props);
+    }
+
+
     componentWillMount() {
         this.props.navigation.setParams({
             backEnabled: true,
