@@ -41,9 +41,11 @@ export default class Lookup extends Component {
                     placeholder="Enter License Plate"
                     maxLength={7}
                     required={true}
+                    label="License Plate Number"
                     onChangeText={ (plate) => this.setState({ plate: this.state.stateISO + plate.toUpperCase() }) }
-                    mode="outlined"
+                    mode="flat"
                 />
+
                 <View style={styles.buttonContainer}>
                     <Button
                         onPress={this._doSearch}
