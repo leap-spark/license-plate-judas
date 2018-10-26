@@ -9,7 +9,7 @@ export default class LookupView extends Component {
     componentWillMount() {
         this.props.navigation.setParams({
             backEnabled: false,
-            title: 'Lookup A Plate'
+            title: 'License Plate J.U.D.A.S'
         });
     }
 

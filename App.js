@@ -56,7 +56,7 @@ const DrawerStack = createDrawerNavigator(
         Home: {
             screen: AppStack,
             navigationOptions: {
-                drawerLabel: 'Lookup',
+                drawerLabel: 'Home',
                 drawerIcon: (<Icon name="search" size={20} color="#000" />)
             }
         },
