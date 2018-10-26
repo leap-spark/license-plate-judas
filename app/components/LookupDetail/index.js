@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View, StyleSheet, Text } from 'react-native';
-import { Headline, List } from 'react-native-paper';
+import { ActivityIndicator, View, StyleSheet, Text, Dimensions } from 'react-native';
+import { Headline } from 'react-native-paper';
 
 import { API } from '../../lib';
+import ReportList from '../ReportList';
 
 
 export default class LookupDetail extends Component {
@@ -13,7 +14,7 @@ export default class LookupDetail extends Component {
         this.state = {
             reports: [],
             paginateAt: '',
-            doingAction: true,
+            isDoingAction: true,
         };
     }
 
@@ -21,28 +22,12 @@ export default class LookupDetail extends Component {
     async componentDidMount() {
         const plate = this.props.navigation.getParam('plate');
         const reports = await API.getReportsForPlate(plate);
-        await this.setState({ reports, doingAction: false });
+
+        await this.setState({
+            reports,
+            isDoingAction: false,
+        });
     }
-
-
-    _generateComponentList = () => {
-        return (
-            <List.Section title="Latest Reports">
-                { this.state.reports.map((i, j) => {
-                    const mood = i.mood === 'happy' ? 'mood' : 'mood-bad';
-
-                    return (
-                        <List.Item
-                            key={j}
-                            title={i.reason}
-                            description={i.location + ' @ ' + i.timestamp}
-                            left={ () => <List.Icon icon={mood} color="#000" /> }
-                        />
-                    );
-                }) }
-            </List.Section>
-        );
-    };
 
 
     render() {
@@ -57,9 +42,14 @@ export default class LookupDetail extends Component {
                     </Headline>
                 </View>
 
-                <ActivityIndicator animating={this.state.doingAction } />
+                <ActivityIndicator animating={this.state.isDoingAction } />
 
-                { this.state.reports.length && !this.state.doingAction ? this._generateComponentList() : <Text>No Reports Found</Text>}
+                { this.state.reports.length && !this.state.isDoingAction ?
+                    <ReportList
+                        data={this.state.reports}
+                        initialNumToRender={7}
+                    />
+                    : <Text>No Reports Found</Text>}
             </View>
         );
     }
@@ -72,6 +62,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         padding: 15,
+        width: Dimensions.get('window').width,
     },
     headerContainer: {
         alignSelf: 'stretch',
