@@ -74,7 +74,8 @@ export default class Login extends Component {
                     placeholder="Email"
                     autoCapitalize="none"
                     required={true}
-                    mode="outlined"
+                    mode="flat"
+                    label="Email Address"
                     onChangeText={(text) => this.setState({ errors: undefined, email: text })}
                 />
                 <HelperText
@@ -87,7 +88,8 @@ export default class Login extends Component {
                     placeholder="Password"
                     required={true}
                     autoCapitalize="none"
-                    mode="outlined"
+                    mode="flat"
+                    label="Password"
                     secureTextEntry={true}
                     onChangeText={(text) => this.setState({ errors: undefined, password: text })}
                 />
