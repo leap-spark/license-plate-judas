@@ -2,6 +2,7 @@ import uuid from 'uuid/v4';
 import * as firebase from 'firebase';
 
 import Storage from './storage';
+import ErrorHandler from './errorHandler';
 
 
 function handleError(error) {
@@ -11,7 +12,7 @@ function handleError(error) {
 export default class API {
 
     static async signInUser(email, password) {
-        return await firebase.auth().signInWithEmailAndPassword(email, password).catch(handleError);
+        return await firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => new ErrorHandler(error, 1));
     }
 
 
@@ -38,8 +39,7 @@ export default class API {
 
             return await API.getReportsByIds(ids);
         } catch (error) {
-            // TODO: Do something useful with this error
-            console.error(error);
+            new ErrorHandler(error);
         }
     }
 
