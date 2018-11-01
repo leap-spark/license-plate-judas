@@ -15,10 +15,10 @@ import AccountView from './app/views/AccountView';
 import Authenticator from './app/components/Authenticator';
 import NavigationDrawer from './app/components/NavigationDrawer';
 
-import { SENTRY_API } from 'react-native-dotenv';
+import { SENTRY_DSN } from 'react-native-dotenv';
 import Sentry from 'sentry-expo';
 
-Sentry.config(SENTRY_API).install();
+Sentry.config(SENTRY_DSN).install();
 
 /**
  * The react navigation works by creating "stacks" of navigation items that get encapsulated into a navigation component.
