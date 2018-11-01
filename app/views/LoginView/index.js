@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Title, Text } from 'react-native-paper';
 
 import Login from '../../components/Login';
-import Wrapper from '../../components/Wrapper';
 
 
 // TODO: Needs styling
 export default (props) => (
     <View style={styles.home}>
+        <Title>License Plate Judas</Title>
+        <Text>Login</Text>
         <Login navigation={props.navigation} />
     </View>
 );
@@ -17,6 +19,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         flex: 1,
-        justifyContent: 'center'
+        flexDirection: 'column',
+        justifyContent: 'center',
+        textAlign: 'center',
     },
 });
