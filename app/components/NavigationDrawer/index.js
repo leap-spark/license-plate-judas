@@ -18,7 +18,6 @@ export default (props) => (
              but the nested component in TouchableNativeFeedback must be a single element
              **/}
             <TouchableNativeFeedback onPress={ async () => {
-                console.log('logging out');
                 await API.signOutUser();
                 props.navigation.navigate('Auth');
             }}>
