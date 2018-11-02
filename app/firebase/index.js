@@ -8,6 +8,8 @@ import {
     MESSAGING_SENDER_ID
 } from 'react-native-dotenv';
 
+import { Sin } from '../lib';
+
 
 const firebaseConfig = {
     apiKey: API_KEY,
@@ -18,6 +20,10 @@ const firebaseConfig = {
     messagingSenderId: MESSAGING_SENDER_ID
 };
 
-firebase.initializeApp(firebaseConfig);
+try {
+    firebase.initializeApp(firebaseConfig);
+} catch (error) {
+    new Sin(error, 2, 'fatal');
+}
 
 export default firebase;
