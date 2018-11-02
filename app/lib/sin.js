@@ -7,9 +7,17 @@ export default class Sin {
     priority = 0;
 
 
-    constructor(message, priority = 0) {
+    /**
+     * Sin constructor.
+     *
+     * @param message  string The error message.
+     * @param priority int    Priority level, can be 0, 1, 2, or 3.
+     * @param level    string The error level, 'info', 'error', 'warning', 'debug', 'fatal', 'critical'.
+     */
+    constructor(message, priority = 0, level = 'error') {
         this.message = message;
         this.priority = priority;
+        this.level = level;
 
         this.processException();
     }
