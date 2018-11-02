@@ -13,12 +13,14 @@ export default class ReportList extends Component {
 
     _listItemTemplate = (item) => {
         const mood = item.mood === 'happy' ? 'mood' : 'mood-bad';
+        const date = new Date(item.timestamp);
+        const datestr = date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear();
 
         return (
             <List.Item
                 key={item.uuid}
                 title={item.reason}
-                description={item.location + ' @ ' + item.timestamp}
+                description={item.location + ' @ ' + datestr}
                 left={ () => <List.Icon icon={mood} color="#000" /> }
             />
         );
