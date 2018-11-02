@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native';
 import { Button, TextInput, HelperText } from 'react-native-paper';
+import PropTypes from 'prop-types';
 
 import firebase from '../../firebase';
 import { API, Helpers, Storage } from '../../lib';
@@ -119,6 +120,10 @@ export default class Login extends Component {
         );
     }
 }
+
+Login.propTypes = {
+    navigation: PropTypes.object,
+};
 
 const styles = StyleSheet.create({
     container: {

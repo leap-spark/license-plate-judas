@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PropTypes from 'prop-types';
 
 
 export default class Mood extends Component {
@@ -34,6 +35,10 @@ export default class Mood extends Component {
         );
     }
 }
+
+Mood.propTypes = {
+    navigation: PropTypes.object,
+};
 
 const moodSharedStyle = {
     alignItems: 'center',

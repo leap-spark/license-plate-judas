@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Appbar } from 'react-native-paper';
+import PropTypes from 'prop-types';
 
 
 export default class TopBarNavigation extends Component {
@@ -30,3 +31,7 @@ export default class TopBarNavigation extends Component {
         );
     }
 }
+
+TopBarNavigation.propTypes = {
+    navigation: PropTypes.object,
+};

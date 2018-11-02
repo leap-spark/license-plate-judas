@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 import LookupDetail from '../../components/LookupDetail';
 import Wrapper from '../../components/Wrapper';
@@ -30,6 +31,10 @@ export default class LookupDetailView extends Component {
         );
     }
 }
+
+LookupDetailView.propTypes = {
+    navigation: PropTypes.object,
+};
 
 const styles = StyleSheet.create({
     home: {

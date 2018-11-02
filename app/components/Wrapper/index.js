@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import TopBarNavigation from '../TopBarNavigation';
 import { withNavigation } from 'react-navigation';
+import PropTypes from 'prop-types';
 
 
 class Wrapper extends Component {
@@ -28,6 +29,10 @@ class Wrapper extends Component {
         );
     }
 }
+
+Wrapper.propTypes = {
+    navigation: PropTypes.object,
+};
 
 export default withNavigation(Wrapper);
 

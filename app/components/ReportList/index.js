@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { List } from 'react-native-paper';
 import { FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 
 
 export default class ReportList extends Component {
@@ -33,3 +34,8 @@ export default class ReportList extends Component {
         );
     }
 }
+
+ReportList.propTypes = {
+    data: PropTypes.array,
+    initialNumToRender: PropTypes.number,
+};

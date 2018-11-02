@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Lookup from '../../components/Lookup';
 import Wrapper from '../../components/Wrapper';
@@ -22,3 +23,7 @@ export default class LookupView extends Component {
         );
     }
 }
+
+LookupView.propTypes = {
+    navigation: PropTypes.object,
+};

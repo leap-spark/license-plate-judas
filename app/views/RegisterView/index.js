@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 import Register from '../../components/Register';
 
 
 // TODO: Needs styling
-export default (props) => (
+const RegisterView = (props) => (
     <View style={styles.home}>
         <Register navigation={props.navigation} />
     </View>
@@ -18,3 +19,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 });
+
+RegisterView.propTypes = {
+    navigation: PropTypes.object,
+};
+
+export default RegisterView;

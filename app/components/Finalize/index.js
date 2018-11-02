@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PropTypes from 'prop-types';
 
-import firebase from '../../firebase';
+import { API } from '../../lib';
 
 
 export default class Reason extends Component {
@@ -21,9 +22,6 @@ export default class Reason extends Component {
 
     async componentDidMount() {
 
-        // TODO: We need to do some sanitation checks on the state.plate
-        // TODO: Improve the error handling
-
         /**
          * [1] Generate a new key in the reports tree
          * [2] Grab the current users UID
@@ -36,8 +34,8 @@ export default class Reason extends Component {
          * [6] Run the update
          * [7] Return the key so that the next view can know which report to update
          */
-        const REPORT_KEY = firebase.database().ref('/reports').push().key; // [1]
-        const userID = await firebase.auth().currentUser.uid; // [2]
+        const REPORT_KEY = await API.getNextRefKey('/reports'); // [1]
+        const userID = await API.getCurrentUserID(); // [2]
 
         let updates = {};
         updates['/offenders/' + this.state.plate] = true; // [3]
@@ -54,7 +52,7 @@ export default class Reason extends Component {
         updates['/users_meta/' + userID + '/reports_submitted/' + REPORT_KEY] = true; // [4]
         updates['/offenders_meta/' + this.state.plate  + '/associated_reports/' + REPORT_KEY] = true; // [5]
 
-        await firebase.database().ref().update(updates).catch((error) => console.log(error)); // [6]
+        await API.postArrayOfUpdates(updates); // [6]
 
         this.setState({ doingAction: false });
 
@@ -78,3 +76,7 @@ export default class Reason extends Component {
         );
     }
 }
+
+Reason.propTypes = {
+    navigation: PropTypes.object,
+};

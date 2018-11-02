@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, View, StyleSheet, Text, Dimensions } from 'react-native';
 import { Headline } from 'react-native-paper';
+import PropTypes from 'prop-types';
 
 import { API } from '../../lib';
 import ReportList from '../ReportList';
@@ -54,6 +55,10 @@ export default class LookupDetail extends Component {
         );
     }
 }
+
+LookupDetail.propTypes = {
+    navigation: PropTypes.object,
+};
 
 const styles = StyleSheet.create({
     container: {

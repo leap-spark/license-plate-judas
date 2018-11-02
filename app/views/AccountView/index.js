@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 import Wrapper from '../../components/Wrapper';
 import MyAccount from '../../components/MyAccount';
@@ -30,6 +31,10 @@ export default class AccountView extends Component {
         );
     }
 }
+
+AccountView.propTypes = {
+    navigation: PropTypes.object,
+};
 
 const styles = StyleSheet.create({
     home: {

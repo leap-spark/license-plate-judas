@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 import Reason from '../../components/Reason';
 import Wrapper from '../../components/Wrapper';
@@ -34,3 +35,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
+MoodView.propTypes = {
+    navigation: PropTypes.object,
+};

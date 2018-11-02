@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 import Finalize from '../../components/Finalize';
 import Wrapper from '../../components/Wrapper';
@@ -25,6 +26,10 @@ export default class FinishView extends Component {
         );
     }
 }
+
+FinishView.propTypes = {
+    navigation: PropTypes.object,
+};
 
 const styles = StyleSheet.create({
     home: {

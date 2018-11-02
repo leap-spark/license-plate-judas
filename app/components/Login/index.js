@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native';
 import { Button, HelperText, TextInput } from 'react-native-paper';
+import PropTypes from 'prop-types';
 
 import firebase from '../../firebase';
-import { API, Helpers, Storage, ErrorHandler } from '../../lib';
+import { API, Helpers, Storage } from '../../lib';
 
 // TODO: Add HelperText components to username field to hint if invalid/malformed email address
 // @see https://callstack.github.io/react-native-paper/helper-text.html
@@ -50,8 +51,6 @@ export default class Login extends Component {
         await API.signInUser(this.state.email, this.state.password);
 
         this._endActivityIndicators();
-
-        // new ErrorHandler('logged in', 0);
 
         if (firebase.auth().currentUser) {
             await this._loginSuccess();
@@ -111,6 +110,10 @@ export default class Login extends Component {
         );
     }
 }
+
+Login.propTypes = {
+    navigation: PropTypes.object,
+};
 
 const styles = StyleSheet.create({
     container: {

@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 import Login from '../../components/Login';
-import Wrapper from '../../components/Wrapper';
 
 
 // TODO: Needs styling
-export default (props) => (
+const LoginView = (props) => (
     <View style={styles.home}>
         <Login navigation={props.navigation} />
     </View>
 );
+
+LoginView.propTypes = {
+    navigation: PropTypes.object,
+};
 
 const styles = StyleSheet.create({
     home: {
@@ -20,3 +24,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
 });
+
+export default LoginView;

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, StatusBar, View } from 'react-native';
-import { Storage } from '../../lib';
 import { withNavigation } from 'react-navigation';
+import PropTypes from 'prop-types';
+
+import { Storage } from '../../lib';
 
 
 class Authenticator extends Component {
@@ -26,5 +28,9 @@ class Authenticator extends Component {
         );
     }
 }
+
+Authenticator.propTypes = {
+    navigation: PropTypes.object,
+};
 
 export default withNavigation(Authenticator);

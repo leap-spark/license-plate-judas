@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import PropTypes from 'prop-types';
 
 import StatePicker from '../StatePicker';
 
@@ -67,6 +68,10 @@ export default class Lookup extends Component {
         );
     }
 }
+
+Lookup.propTypes = {
+    navigation: PropTypes.object,
+};
 
 const styles = StyleSheet.create({
     input: {
