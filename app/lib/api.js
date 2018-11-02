@@ -2,30 +2,42 @@ import uuid from 'uuid/v4';
 import * as firebase from 'firebase';
 
 import Storage from './storage';
-import ErrorHandler from './errorHandler';
+import Sin from './sin';
 
-
-function handleError(error) {
-    alert(error);
-}
 
 export default class API {
 
     static async signInUser(email, password) {
-        return await firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => new ErrorHandler(error, 1));
+        return await firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+            new Sin(`${email} Logged In`, 1);
+        }).catch((error) => {
+            new Sin(error, 0);
+        });
     }
 
 
     static async registerUser(email, password) {
-        return await firebase.auth().createUserWithEmailAndPassword(email, password).catch(handleError);
+        return await firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+            new Sin(`${email} Registered`, 1);
+        }).catch((error) => {
+            new Sin(error, 0);
+        });
     }
 
 
     static async signOutUser() {
         return await Promise.all([
+            new Sin('User Logged Out', 1),
             Storage.delete('Token'),
             firebase.auth().signOut()
-        ]).catch(handleError);
+        ]).catch((error) => {
+            new Sin(error, 1);
+        });
+    }
+
+
+    static async getCurrentUserID() {
+        return await firebase.auth().currentUser.uid;
     }
 
 
@@ -39,7 +51,7 @@ export default class API {
 
             return await API.getReportsByIds(ids);
         } catch (error) {
-            new ErrorHandler(error);
+            new Sin(error, 1);
         }
     }
 
@@ -54,7 +66,7 @@ export default class API {
 
             return ids.val();
         } catch (error) {
-            console.error(error);
+            new Sin(error, 1);
         }
     }
 
@@ -75,8 +87,7 @@ export default class API {
                 return firebase.database().ref(`/reports/${id}`).limitToLast(limitToLast).once('value', (snapshot) => reports.push(snapshot.val()));
             })
         ).catch((error) => {
-            // TODO: Do something useful with this error
-            console.error(error);
+            new Sin(error, 1);
         });
 
         return reports.map((report) => {
@@ -90,12 +101,26 @@ export default class API {
         const userID = await firebase.auth().currentUser.uid;
 
         if (!userID) {
-            // TODO: Do something here to handle the "error"
+            new Sin('No data found for user ' + userID, 1);
             return;
         }
 
-        let userData = await firebase.database().ref(`/users_meta/${userID}`).once('value').catch(handleError);
+        let userData = await firebase.database().ref(`/users_meta/${userID}`).once('value').catch((error) => {
+            new Sin(error, 1);
+        });
 
         return userData.val();
+    }
+
+
+    static async postArrayOfUpdates(updates) {
+        return await firebase.database().ref().update(updates).catch((error) => {
+            new Sin(error, 1);
+        });
+    }
+
+
+    static async getNextRefKey(tree) {
+        return await firebase.database().ref(tree).push().key;
     }
 }
