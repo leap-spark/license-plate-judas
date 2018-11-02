@@ -65,7 +65,7 @@ export default class Login extends Component {
                 />
                 <HelperText
                     type="error"
-                    visible={!Helpers.isValidEmail(this.state.email)}>
+                    visible={ this.state.email && !Helpers.isValidEmail(this.state.email) }>
                     Email Address isn't valid
                 </HelperText>
 
@@ -128,7 +128,6 @@ Login.propTypes = {
 const styles = StyleSheet.create({
     container: {
         alignContent: 'stretch',
-        flex: 1,
         justifyContent: 'center',
         width: Dimensions.get('window').width - 50
     }

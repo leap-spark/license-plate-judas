@@ -1,5 +1,25 @@
 # License Plate Judas
 
+### Editing "Reasons" Dictionary
+
+The reasons are a nested object located in the `config/index.js` file and aptly named `reasonsDictionary`. Reasons exist for both `happy` and `angry` moods.
+
+A sample schema for a reason is as follows:
+
+```javascript
+...
+{
+    'name': 'Waved Me',
+    'id': 'waved_me',
+    'color': '',
+    'icon': 'pan-tool'
+},
+...
+```
+
+- The `id` can't include a space and should instead be underscore separated words.
+- The `icon` is the name of an icon that is included in the `react-native-vector-icons/MaterialIcons` package. A list of the icons can be found [here](https://material.io/tools/icons/).
+
 
 ### Creating A View
 
