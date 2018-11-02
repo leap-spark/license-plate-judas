@@ -18,6 +18,7 @@ import NavigationDrawer from './app/components/NavigationDrawer';
 import { SENTRY_DSN } from 'react-native-dotenv';
 import Sentry from 'sentry-expo';
 
+Sentry.enableInExpoDevelopment = true;
 Sentry.config(SENTRY_DSN).install();
 
 /**
