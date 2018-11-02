@@ -1,5 +1,8 @@
 import { SecureStore } from 'expo';
 
+import Sin from './sin';
+
+
 export default class Storage {
 
     /**
@@ -18,7 +21,7 @@ export default class Storage {
                 data = value;
             }
         } catch (error) {
-            console.error(error);
+            new Sin(error, 1);
         }
 
         return data;
@@ -36,8 +39,7 @@ export default class Storage {
         try {
             await SecureStore.setItemAsync(key, value);
         } catch (error) {
-            // TODO: Do something useful with this error
-            console.error(error);
+            new Sin(error, 1);
         }
     }
 
@@ -51,8 +53,7 @@ export default class Storage {
         try {
             await SecureStore.deleteItemAsync(key);
         } catch (error) {
-            // TODO: Do something useful with this error
-            console.error(error);
+            new Sin(error, 1);
         }
     }
 }
