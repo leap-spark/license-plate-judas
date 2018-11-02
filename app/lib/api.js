@@ -9,7 +9,7 @@ export default class API {
 
     static async signInUser(email, password) {
         return await firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-            new Sin(`${email} Logged In`, 1);
+            new Sin(`${email} Logged In`, 1, 'info');
         }).catch((error) => {
             new Sin(error, 0);
         });
@@ -18,7 +18,7 @@ export default class API {
 
     static async registerUser(email, password) {
         return await firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-            new Sin(`${email} Registered`, 1);
+            new Sin(`${email} Registered`, 1, 'info');
         }).catch((error) => {
             new Sin(error, 0);
         });
@@ -27,7 +27,7 @@ export default class API {
 
     static async signOutUser() {
         return await Promise.all([
-            new Sin('User Logged Out', 1),
+            new Sin('User Logged Out', 1, 'info'),
             Storage.delete('Token'),
             firebase.auth().signOut()
         ]).catch((error) => {
