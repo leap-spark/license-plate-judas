@@ -37,7 +37,7 @@ export default class Sin {
 
 
     async reportMessage() {
-        await Sentry.captureMessage(this.message);
+        await Sentry.captureMessage(this.message, { level: this.level });
     }
 
 
