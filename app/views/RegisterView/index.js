@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 
 import Register from '../../components/Register';
 import { Text, Title } from 'react-native-paper';
+import Logo from '../../components/Logo';
 
 
-// TODO: Needs styling
 const RegisterView = (props) => (
     <View style={styles.home}>
+        <Logo />
         <Title>License Plate Judas</Title>
         <Text>Register</Text>
         <Register navigation={props.navigation} />
