@@ -14,16 +14,6 @@
             "resizeMode": "contain",
             "backgroundColor": "#ffffff"
         },
-        "postPublish": [
-            {
-                "file": "sentry-expo/upload-sourcemaps",
-                "config": {
-                    "organization": "Leap Spark",
-                    "project": "License Plate Judas",
-                    "authToken": ""
-                }
-            }
-        ]
         "updates": {
             "fallbackToCacheTimeout": 0
         },
@@ -32,6 +22,18 @@
         ],
         "ios": {
             "supportsTablet": true
+        },
+        "hooks": {
+            "postPublish": [
+                {
+                    "file": "sentry-expo/upload-sourcemaps",
+                    "config": {
+                        "organization": "REACT_NATIVE_SENTRY_ORG",
+                        "project": "REACT_NATIVE_SENTRY_PROJECT",
+                        "authToken": "REACT_NATIVE_SENTRY_AUTH_TOKEN"
+                    }
+                }
+            ]
         }
     }
 }
