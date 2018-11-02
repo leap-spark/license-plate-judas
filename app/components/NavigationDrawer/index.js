@@ -4,13 +4,18 @@ import { DrawerItems } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { API } from '../../lib';
+import Logo from '../Logo';
 
 
 // TODO: Put logo or image or whatever here to fancy it up
 export default (props) => (
     <ScrollView>
         <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-            <Text>License Plate Judas</Text>
+            <View style={{ backgroundColor: '#58B19F', flex: 1, flexDirection:'column', alignItems: 'center', padding: 25 }}>
+                <Logo />
+                <Text style={{ fontWeight: 'bold', color: '#fff', marginTop: 8}}>License Plate Judas</Text>
+            </View>
+
             <DrawerItems {...props} />
 
             {/**
