@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import PropTypes from 'prop-types';
+import { INavigation } from "../../typings";
 
 
-export default class Mood extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    constructor(props) {
+export default class Mood extends Component<IProps> {
+
+    public constructor(props: IProps) {
         super(props);
     }
 
 
-    _setMood = (mood) => {
+    private _setMood = (mood: string) => {
         this.props.navigation.navigate('Reason', {
             plate: this.props.navigation.getParam('plate'),
             mood,
@@ -19,7 +23,7 @@ export default class Mood extends Component {
     };
 
 
-    render() {
+    public render() {
         return (
             <View style={style.moods}>
                 <TouchableOpacity style={style.happy} onPress={ () => this._setMood('happy') }>
@@ -36,16 +40,6 @@ export default class Mood extends Component {
     }
 }
 
-Mood.propTypes = {
-    navigation: PropTypes.object,
-};
-
-const moodSharedStyle = {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
-};
-
 const style = StyleSheet.create({
     moods: {
         alignItems: 'stretch',
@@ -55,11 +49,15 @@ const style = StyleSheet.create({
         justifyContent: 'center'
     },
     angry: {
-        ...moodSharedStyle,
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
         backgroundColor: '#FD7272'
     },
     happy: {
-        ...moodSharedStyle,
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
         backgroundColor: '#58B19F'
     },
     text: {

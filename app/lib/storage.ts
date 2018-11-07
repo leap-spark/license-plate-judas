@@ -11,8 +11,8 @@ export default class Storage {
      * @param key   string  The key to retrieve.
      * @returns {Promise<boolean>}
      */
-    static async get(key) {
-        let data = false;
+    public static async get(key: string): Promise<any> {
+        let data: any = false;
 
         try {
             const value = await SecureStore.getItemAsync(key);
@@ -35,7 +35,7 @@ export default class Storage {
      * @param value string The value to store.
      * @returns {Promise<*|boolean>}
      */
-    static async set(key, value) {
+    public static async set(key: string, value: string): Promise<any> {
         try {
             await SecureStore.setItemAsync(key, value);
         } catch (error) {
@@ -49,7 +49,7 @@ export default class Storage {
      * @param key
      * @returns {Promise<void>}
      */
-    static async delete(key) {
+    public static async delete(key: string): Promise<any> {
         try {
             await SecureStore.deleteItemAsync(key);
         } catch (error) {

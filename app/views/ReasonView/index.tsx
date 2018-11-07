@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
 
-import Reason from '../../components/Reason';
-import Wrapper from '../../components/Wrapper';
+import Reason from '../../components/Reason/index';
+import Wrapper from '../../components/Wrapper/index';
+import { INavigation } from "../../typings";
 
 
-export default class MoodView extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    componentWillMount() {
+export default class MoodView extends Component<IProps> {
+
+    public constructor(props: IProps) {
+        super(props);
+    }
+
+
+    public componentWillMount(): void {
         this.props.navigation.setParams({
             backEnabled: true,
             title: 'Choose A Reason'
@@ -16,7 +25,7 @@ export default class MoodView extends Component {
     }
 
 
-    render() {
+    public render(): React.ReactNode {
         return (
             <Wrapper>
                 <View style={styles.home}>
@@ -35,7 +44,3 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
-
-MoodView.propTypes = {
-    navigation: PropTypes.object,
-};

@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
-import PropTypes from 'prop-types';
 
-import StatePicker from '../StatePicker';
+import StatePicker from '../StatePicker/index';
+import { INavigation } from "../../typings";
 
 
-export default class Lookup extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    constructor(props) {
+interface IState {
+    plate: string,
+    stateISO: string,
+}
+
+export default class Lookup extends Component<IProps, IState> {
+
+    public constructor(props: IProps) {
         super(props);
 
         this.state = {
@@ -18,32 +27,31 @@ export default class Lookup extends Component {
     }
 
 
-    _doSearch = async () => {
-        this.props.navigation.navigate('LookupDetail', { ...this.state });
+    private _doSearch = async (): Promise<object> => {
+        return this.props.navigation.navigate('LookupDetail', { ...this.state });
     };
 
 
-    _doReportSubmission = async () => {
-        this.props.navigation.navigate('Mood', { ...this.state });
+    private _doReportSubmission = async (): Promise<object> => {
+        return this.props.navigation.navigate('Mood', { ...this.state });
     };
 
 
-    render() {
+    public render() {
         return (
             <View style={styles.container}>
                 <StatePicker
                     selectedValue={this.state.stateISO}
                     style={{ height: 50, width: 250 }}
                     required={true}
-                    onValueChange={ (stateISO) => this.setState({ stateISO }) } />
+                    onValueChange={ (stateISO: string) => this.setState({ stateISO }) } />
 
                 <TextInput
                     style={styles.input}
                     placeholder="Enter License Plate"
                     maxLength={7}
-                    required={true}
                     label="License Plate Number"
-                    onChangeText={ (plate) => this.setState({ plate: this.state.stateISO + plate.toUpperCase() }) }
+                    onChangeText={ (plate: string) => this.setState({ plate: this.state.stateISO + plate.toUpperCase() }) }
                     mode="flat"
                 />
 
@@ -60,7 +68,7 @@ export default class Lookup extends Component {
                         mode="contained"
                         color="#58B19F"
                         dark={true}
-                        theme={{ fontWeight: 'bold', roundness: 0 }}
+                        theme={{ roundness: 0 }}
                         disabled={!this.state.plate && !this.state.stateISO}
                         accessibilityLabel="Report">Report</Button>
                 </View>
@@ -68,10 +76,6 @@ export default class Lookup extends Component {
         );
     }
 }
-
-Lookup.propTypes = {
-    navigation: PropTypes.object,
-};
 
 const styles = StyleSheet.create({
     input: {

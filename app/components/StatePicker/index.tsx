@@ -1,9 +1,15 @@
 import { Picker } from 'react-native';
 import React from 'react';
-import PropTypes from 'prop-types';
 
 
-const StatePicker = (props) => (
+interface IProps {
+    selectedValue: string,
+    style: object,
+    required: boolean,
+    onValueChange: any,
+}
+
+const StatePicker = (props: IProps) => (
     <Picker {...props}>
         <Picker.Item label="Select A State" value="" />
         <Picker.Item label="Alabama" value="AL" />
@@ -59,19 +65,5 @@ const StatePicker = (props) => (
         <Picker.Item label="Wyoming" value="WY" />
     </Picker>
 );
-
-StatePicker.propTypes = {
-    selectedValue: PropTypes.string,
-    style: PropTypes.object,
-    required: PropTypes.bool,
-    onValueChange: PropTypes.func,
-};
-
-StatePicker.defaultProps = {
-    selectedValue: '',
-    style: {},
-    required: true,
-    onValueChange: (val) => val,
-};
 
 export default StatePicker;

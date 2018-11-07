@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import TopBarNavigation from '../TopBarNavigation';
+import TopBarNavigation from '../TopBarNavigation/index';
 import { withNavigation } from 'react-navigation';
-import PropTypes from 'prop-types';
+import { INavigation } from "../../typings";
 
 
-class Wrapper extends Component {
+interface IProps {
+    children?: React.ReactNode,
+    navigation?: INavigation,
+}
 
-    constructor(props) {
+class Wrapper extends Component<IProps> {
+
+    public constructor(props: IProps) {
         super(props);
     }
 
 
-    render() {
-        const { children } = this.props;
-
+    public render(): React.ReactNode {
         // Pass the navigation to all child components
-        const childrenWithProps = React.Children.map(children, (child) =>
-            React.cloneElement(child, { navigation: this.props.navigation })
+        const childrenWithProps = React.Children.map(this.props.children, (child) =>
+            React.cloneElement(child as any, { navigation: this.props.navigation })
         );
 
         return (
@@ -29,10 +32,6 @@ class Wrapper extends Component {
         );
     }
 }
-
-Wrapper.propTypes = {
-    navigation: PropTypes.object,
-};
 
 export default withNavigation(Wrapper);
 
