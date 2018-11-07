@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
 
-import Finalize from '../../components/Finalize';
-import Wrapper from '../../components/Wrapper';
+import Finalize from '../../components/Finalize/index';
+import Wrapper from '../../components/Wrapper/index';
+import { INavigation } from "../../typings";
 
 
-export default class FinishView extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    componentWillMount() {
+export default class FinishView extends Component<IProps> {
+
+    public constructor(props: IProps) {
+        super(props);
+    }
+
+    public componentWillMount(): void {
         this.props.navigation.setParams({
             backEnabled: false,
             title: 'Finishing Up'
@@ -16,7 +24,7 @@ export default class FinishView extends Component {
     }
 
 
-    render() {
+    public render(): React.ReactNode {
         return (
             <Wrapper>
                 <View style={styles.home}>
@@ -26,10 +34,6 @@ export default class FinishView extends Component {
         );
     }
 }
-
-FinishView.propTypes = {
-    navigation: PropTypes.object,
-};
 
 const styles = StyleSheet.create({
     home: {

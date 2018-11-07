@@ -1,13 +1,17 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
 
-import Register from '../../components/Register';
+import Register from '../../components/Register/index';
 import { Text, Title } from 'react-native-paper';
-import Logo from '../../components/Logo';
+import Logo from '../../components/Logo/index';
+import { INavigation } from "../../typings";
 
 
-const RegisterView = (props) => (
+interface IProps {
+    navigation: INavigation,
+}
+
+const RegisterView = (props: IProps) => (
     <View style={styles.home}>
         <Logo />
         <Title>License Plate Judas</Title>
@@ -26,9 +30,5 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
-
-RegisterView.propTypes = {
-    navigation: PropTypes.object,
-};
 
 export default RegisterView;

@@ -1,13 +1,17 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
 import { Title, Text } from 'react-native-paper';
 
-import Login from '../../components/Login';
-import Logo from '../../components/Logo';
+import Login from '../../components/Login/index';
+import Logo from '../../components/Logo/index';
+import { INavigation } from "../../typings";
 
 
-const LoginView = (props) => (
+interface IProps {
+    navigation: INavigation,
+}
+
+const LoginView = (props: IProps) => (
     <View style={styles.home}>
         <Logo />
         <Title>License Plate Judas</Title>
@@ -15,10 +19,6 @@ const LoginView = (props) => (
         <Login navigation={props.navigation} />
     </View>
 );
-
-LoginView.propTypes = {
-    navigation: PropTypes.object,
-};
 
 const styles = StyleSheet.create({
     home: {

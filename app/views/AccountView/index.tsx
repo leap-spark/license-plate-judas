@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
 
-import LookupDetail from '../../components/LookupDetail';
-import Wrapper from '../../components/Wrapper';
+import { INavigation } from "../../typings";
+import Wrapper from '../../components/Wrapper/index';
+import MyAccount from '../../components/MyAccount/index';
 
 
-export default class LookupDetailView extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    constructor(props) {
+export default class AccountView extends Component<IProps> {
+
+    public constructor(props: IProps) {
         super(props);
     }
 
 
-    componentWillMount() {
+    public componentWillMount(): void {
         this.props.navigation.setParams({
             backEnabled: true,
-            title: 'Viewing Details'
+            title: 'My Account'
         });
     }
 
 
-    render() {
+    public render(): React.ReactNode {
         return (
             <Wrapper>
                 <View style={styles.home}>
-                    <LookupDetail navigation={this.props.navigation} />
+                    <MyAccount />
                 </View>
             </Wrapper>
         );
     }
 }
-
-LookupDetailView.propTypes = {
-    navigation: PropTypes.object,
-};
 
 const styles = StyleSheet.create({
     home: {

@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, StatusBar, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import PropTypes from 'prop-types';
 
-import { Storage } from '../../lib';
+import { Storage } from '../../lib/index';
+import { INavigation } from "../../typings";
 
 
-class Authenticator extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    constructor(props) {
+class Authenticator extends Component<IProps> {
+
+    constructor(props: IProps) {
         super(props);
     }
 
 
-    async componentDidMount() {
+    public async componentDidMount(): Promise<object> {
         const userToken = await Storage.get('Token');
-        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+        return this.props.navigation.navigate(userToken ? 'App' : 'Auth');
     }
 
 
-    render() {
+    public render() {
         return (
             <View>
                 <ActivityIndicator />
@@ -28,9 +32,5 @@ class Authenticator extends Component {
         );
     }
 }
-
-Authenticator.propTypes = {
-    navigation: PropTypes.object,
-};
 
 export default withNavigation(Authenticator);

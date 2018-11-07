@@ -3,22 +3,33 @@ import { View, TouchableHighlight, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { reasonsDictionary } from '../../config';
+import { INavigation } from "../../typings";
 
 
-export default class Reason extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    colors = [
+interface IReason {
+    id: string,
+    icon: string,
+    name: string,
+}
+
+export default class Reason extends Component<IProps> {
+
+    private readonly colors: string[] = [
         '#F97F51', '#1B9CFC', '#58B19F', '#FD7272' , '#82589F', '#182C61', '#6D214F', '#BDC581',
     ];
 
 
-    constructor(props) {
+    public constructor(props: IProps) {
         super(props);
     }
 
 
-    _setReason = async (reason) => {
-        this.props.navigation.navigate('Finish', {
+    private _setReason = async (reason: string): Promise<object> => {
+        return this.props.navigation.navigate('Finish', {
             plate: this.props.navigation.getParam('plate'),
             mood: this.props.navigation.getParam('mood'),
             reason,
@@ -26,9 +37,9 @@ export default class Reason extends Component {
     };
 
 
-    render() {
-        const mood = this.props.navigation.getParam('mood');
-        const reasonElements = reasonsDictionary[mood].map((reason, i) => {
+    public render() {
+        const mood: string = this.props.navigation.getParam('mood');
+        const reasonElements: object[] = (reasonsDictionary as any)[mood].map((reason: IReason, i: number) => {
             return (
                 <TouchableHighlight
                     style={[styles.item, { backgroundColor: this.colors[i] }]}

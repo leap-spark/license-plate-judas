@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
 
-import Wrapper from '../../components/Wrapper';
-import MyAccount from '../../components/MyAccount';
+import Mood from '../../components/Mood/index';
+import Wrapper from '../../components/Wrapper/index';
+import { INavigation } from "../../typings";
 
 
-export default class AccountView extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    constructor(props) {
+export default class MoodView extends Component<IProps> {
+
+    public constructor(props: IProps) {
         super(props);
     }
 
 
-    componentWillMount() {
+    public componentWillMount(): void {
         this.props.navigation.setParams({
             backEnabled: true,
-            title: 'My Account'
+            title: 'Choose Your Mood'
         });
     }
 
 
-    render() {
+    public render(): React.ReactNode {
         return (
             <Wrapper>
                 <View style={styles.home}>
-                    <MyAccount navigation={this.props.navigation} />
+                    <Mood navigation={this.props.navigation} />
                 </View>
             </Wrapper>
         );
     }
 }
-
-AccountView.propTypes = {
-    navigation: PropTypes.object,
-};
 
 const styles = StyleSheet.create({
     home: {

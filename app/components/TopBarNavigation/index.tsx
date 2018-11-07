@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import { Appbar } from 'react-native-paper';
-import PropTypes from 'prop-types';
+import { INavigation } from "../../typings";
 
 
-export default class TopBarNavigation extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    constructor(props) {
+export default class TopBarNavigation extends Component<IProps> {
+
+    public constructor(props: IProps) {
         super(props);
     }
 
 
-    _goBack = () => this.props.navigation.goBack();
+    private _goBack = (): void => this.props.navigation.goBack();
 
 
-    _onMore = () => this.props.navigation.toggleDrawer();
+    private _onMore = (): void => this.props.navigation.toggleDrawer();
 
 
-    render() {
+    public render() {
         const backButton = this.props.navigation.getParam('backEnabled') && (<Appbar.BackAction onPress={this._goBack} />);
 
         return (
@@ -31,7 +35,3 @@ export default class TopBarNavigation extends Component {
         );
     }
 }
-
-TopBarNavigation.propTypes = {
-    navigation: PropTypes.object,
-};

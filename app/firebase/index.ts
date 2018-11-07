@@ -8,10 +8,10 @@ import {
     MESSAGING_SENDER_ID
 } from 'react-native-dotenv';
 
-import { Sin } from '../lib';
+import { Sin } from '../lib/index';
 
 
-const firebaseConfig = {
+const firebaseConfig: object = {
     apiKey: API_KEY,
     authDomain: AUTH_DOMAIN,
     databaseURL: DATABASE_URL,

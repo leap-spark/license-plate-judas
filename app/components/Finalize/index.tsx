@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import PropTypes from 'prop-types';
 
-import { API } from '../../lib';
+import { API } from '../../lib/index';
+import { INavigation } from "../../typings";
 
 
-export default class Reason extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    constructor(props) {
+interface IState {
+    plate: string,
+    doingAction: boolean,
+    mood: string,
+    reason: string,
+}
+
+interface IUpdate {
+    [name: string]: any;
+}
+
+export default class Reason extends Component<IProps, IState> {
+
+    public constructor(props: IProps) {
         super(props);
 
         this.state = {
@@ -20,7 +35,7 @@ export default class Reason extends Component {
     }
 
 
-    async componentDidMount() {
+    public async componentDidMount(): Promise<any> {
 
         /**
          * [1] Generate a new key in the reports tree
@@ -37,7 +52,7 @@ export default class Reason extends Component {
         const REPORT_KEY = await API.getNextRefKey('/reports'); // [1]
         const userID = await API.getCurrentUserID(); // [2]
 
-        let updates = {};
+        let updates: IUpdate = {};
         updates['/offenders/' + this.state.plate] = true; // [3]
 
         updates['/reports/' + REPORT_KEY] = {
@@ -60,14 +75,14 @@ export default class Reason extends Component {
     }
 
 
-    _redirect = () => {
+    private _redirect = (): void => {
         setTimeout(() => {
             this.props.navigation.navigate('Lookup');
         }, 2000);
     };
 
 
-    render() {
+    public render() {
         return (
             <View>
                 <Text>Finalizing</Text>
@@ -76,7 +91,3 @@ export default class Reason extends Component {
         );
     }
 }
-
-Reason.propTypes = {
-    navigation: PropTypes.object,
-};

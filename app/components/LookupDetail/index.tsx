@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, View, StyleSheet, Text, Dimensions } from 'react-native';
 import { Headline } from 'react-native-paper';
-import PropTypes from 'prop-types';
 
-import { API } from '../../lib';
-import ReportList from '../ReportList';
+import { API } from '../../lib/index';
+import ReportList from '../ReportList/index';
+import { INavigation } from "../../typings";
 
 
-export default class LookupDetail extends Component {
+interface IProps {
+    navigation: INavigation,
+}
 
-    constructor(props) {
+interface IState {
+    reports: object[],
+    paginateAt: string,
+    isDoingAction: boolean,
+}
+
+export default class LookupDetail extends Component<IProps, IState> {
+
+    public constructor(props: IProps) {
         super(props);
 
         this.state = {
@@ -20,7 +30,7 @@ export default class LookupDetail extends Component {
     }
 
 
-    async componentDidMount() {
+    public async componentDidMount(): Promise<any> {
         const plate = this.props.navigation.getParam('plate');
         const reports = await API.getReportsForPlate(plate);
 
@@ -31,9 +41,9 @@ export default class LookupDetail extends Component {
     }
 
 
-    render() {
-        const state = this.props.navigation.getParam('plate').substring(0, 2);
-        const plate = this.props.navigation.getParam('plate').slice(2);
+    public render() {
+        const state: string = this.props.navigation.getParam('plate').substring(0, 2);
+        const plate: string = this.props.navigation.getParam('plate').slice(2);
 
         return (
             <View style={styles.container}>
@@ -55,10 +65,6 @@ export default class LookupDetail extends Component {
         );
     }
 }
-
-LookupDetail.propTypes = {
-    navigation: PropTypes.object,
-};
 
 const styles = StyleSheet.create({
     container: {

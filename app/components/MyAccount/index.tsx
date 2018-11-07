@@ -2,17 +2,27 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Dimensions, StyleSheet, View, Text } from 'react-native';
 import { Headline } from 'react-native-paper';
 
-import ReportList from '../ReportList';
-import API from '../../lib/api';
+import ReportList from '../ReportList/index';
+import { API } from '../../lib';
 
 
-export default class MyAccount extends Component {
+interface IState {
+    userData: object,
+    reports: object[],
+    isDoingAction: boolean,
+}
 
-    constructor(props) {
+interface UserData {
+    reports_submitted: string[],
+}
+
+export default class MyAccount extends Component<{}, IState> {
+
+    constructor(props: object) {
         super(props);
 
         this.state = {
-            userData: [],
+            userData: {},
             reports: [],
             isDoingAction: true,
         };
@@ -20,8 +30,8 @@ export default class MyAccount extends Component {
 
 
     async componentDidMount() {
-        const userData = await API.getUserData();
-        const reports = await API.getReportsByIds(userData.reports_submitted);
+        const userData: UserData = await API.getUserData();
+        const reports: object[] = await API.getReportsByIds(userData.reports_submitted);
 
         await this.setState({
             reports,

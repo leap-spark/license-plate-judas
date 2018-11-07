@@ -7,7 +7,8 @@ import Sin from './sin';
 
 export default class API {
 
-    static async signInUser(email, password) {
+
+    public static async signInUser(email: string, password: string): Promise<any> {
         return await firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
             new Sin(`${email} Logged In`, 1, 'info');
         }).catch((error) => {
@@ -16,7 +17,7 @@ export default class API {
     }
 
 
-    static async registerUser(email, password) {
+    public static async registerUser(email: string, password: string): Promise<any> {
         return await firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
             new Sin(`${email} Registered`, 1, 'info');
         }).catch((error) => {
@@ -25,7 +26,7 @@ export default class API {
     }
 
 
-    static async signOutUser() {
+    public static async signOutUser(): Promise<any> {
         return await Promise.all([
             new Sin('User Logged Out', 1, 'info'),
             Storage.delete('Token'),
@@ -36,29 +37,31 @@ export default class API {
     }
 
 
-    static async getCurrentUserID() {
+    public static async getCurrentUserID(): Promise<any> {
         return await firebase.auth().currentUser.uid;
     }
 
 
-    static async getReportsForPlate(plate) {
+    public static async getReportsForPlate(plate: string): Promise<object[]> {
         try {
-            const ids = await API.getListOfReportIds(plate);
+            const ids: string[] = await API.getListOfReportIds(plate);
 
             if (!ids) {
-                return [];
+                return null;
             }
 
             return await API.getReportsByIds(ids);
         } catch (error) {
             new Sin(error, 1);
+
+            return null;
         }
     }
 
 
-    static async getListOfReportIds(plate) {
+    public static async getListOfReportIds(plate: string): Promise<any> {
         try {
-            const ids = await firebase.database().ref(`/offenders_meta/${plate}/associated_reports`).once('value');
+            const ids: any = await firebase.database().ref(`/offenders_meta/${plate}/associated_reports`).once('value');
 
             if (!ids) {
                 return false;
@@ -71,19 +74,19 @@ export default class API {
     }
 
 
-    static async getReportsByIds(ids, limitToLast = 50) {
-        ids = Object.keys(ids);
+    public static async getReportsByIds(ids: object, limitToLast: number = 50): Promise<object[]> {
+        let idsArray: string[] = Object.keys(ids);
 
-        if (!ids.length) {
-            return;
+        if (!idsArray.length) {
+            return null;
         }
 
-        let reports = [];
+        let reports: object[] = [];
 
         // This was 500ms faster than filtering the data on server
         // See: https://stackoverflow.com/questions/35931526/speed-up-fetching-posts-for-my-social-network-app-by-using-query-instead-of-obse/35932786#35932786
         await Promise.all(
-            ids.map(id => {
+            idsArray.map(id => {
                 return firebase.database().ref(`/reports/${id}`).limitToLast(limitToLast).once('value', (snapshot) => reports.push(snapshot.val()));
             })
         ).catch((error) => {
@@ -91,21 +94,21 @@ export default class API {
         });
 
         return reports.map((report) => {
-            report.uid = uuid();
+            (report as any).uid = uuid();
             return report;
         });
     }
 
 
-    static async getUserData() {
-        const userID = await firebase.auth().currentUser.uid;
+    public static async getUserData(): Promise<any> {
+        const userID: string = await firebase.auth().currentUser.uid;
 
         if (!userID) {
             new Sin('No data found for user ' + userID, 1);
-            return;
+            return null;
         }
 
-        let userData = await firebase.database().ref(`/users_meta/${userID}`).once('value').catch((error) => {
+        let userData: any = await firebase.database().ref(`/users_meta/${userID}`).once('value').catch((error) => {
             new Sin(error, 1);
         });
 
@@ -113,14 +116,14 @@ export default class API {
     }
 
 
-    static async postArrayOfUpdates(updates) {
+    public static async postArrayOfUpdates(updates): Promise<any> {
         return await firebase.database().ref().update(updates).catch((error) => {
             new Sin(error, 1);
         });
     }
 
 
-    static async getNextRefKey(tree) {
+    public static async getNextRefKey(tree): Promise<any> {
         return await firebase.database().ref(tree).push().key;
     }
 }
