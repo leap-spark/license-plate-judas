@@ -1,59 +1,46 @@
 import { SecureStore } from 'expo';
 
-import Sin from './sin';
+import ErrorHandler from './errorHandler';
 
 
 export default class Storage {
 
-    /**
-     * Get a value from local storage by key.
-     *
-     * @param key   string  The key to retrieve.
-     * @returns {Promise<boolean>}
-     */
-    public static async get(key: string): Promise<any> {
-        let data: any = false;
+
+    public static async get(key: string): Promise<string | null> {
 
         try {
-            const value = await SecureStore.getItemAsync(key);
+            const value: string | null = await SecureStore.getItemAsync(key);
 
             if (value !== null) {
-                data = value;
+                return value;
             }
+
         } catch (error) {
-            new Sin(error, 1);
+            await ErrorHandler.LogException(error);
         }
 
-        return data;
+        return null;
     }
 
-
-    /**
-     * Store a value by key.
-     *
-     * @param key   string The key to store to.
-     * @param value string The value to store.
-     * @returns {Promise<*|boolean>}
-     */
-    public static async set(key: string, value: string): Promise<any> {
+c
+    public static async set(key: string, value: string): Promise<boolean> {
         try {
             await SecureStore.setItemAsync(key, value);
+            return true;
         } catch (error) {
-            new Sin(error, 1);
+            await ErrorHandler.LogException(error);
+            return false;
         }
     }
 
 
-    /**
-     *
-     * @param key
-     * @returns {Promise<void>}
-     */
-    public static async delete(key: string): Promise<any> {
+    public static async delete(key: string): Promise<boolean> {
         try {
             await SecureStore.deleteItemAsync(key);
+            return true;
         } catch (error) {
-            new Sin(error, 1);
+            await ErrorHandler.LogException(error);
+            return false;
         }
     }
 }
