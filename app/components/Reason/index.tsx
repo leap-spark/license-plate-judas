@@ -37,7 +37,7 @@ export default class Reason extends Component<IProps> {
     };
 
 
-    public render() {
+    public render(): React.ReactNode {
         const mood: string = this.props.navigation.getParam('mood');
         const reasonElements: object[] = (reasonsDictionary as any)[mood].map((reason: IReason, i: number) => {
             return (

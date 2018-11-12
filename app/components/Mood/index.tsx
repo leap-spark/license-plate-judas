@@ -23,7 +23,7 @@ export default class Mood extends Component<IProps> {
     };
 
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <View style={style.moods}>
                 <TouchableOpacity style={style.happy} onPress={ () => this._setMood('happy') }>

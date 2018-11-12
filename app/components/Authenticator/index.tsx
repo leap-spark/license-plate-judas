@@ -23,7 +23,7 @@ class Authenticator extends Component<IProps> {
     }
 
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <View>
                 <ActivityIndicator />
