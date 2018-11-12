@@ -28,7 +28,7 @@ export default class Reason extends Component<IProps> {
     }
 
 
-    private _setReason = async (reason: string): Promise<object> => {
+    private _setReason = async (reason: string): Promise<boolean> => {
         return this.props.navigation.navigate('Finish', {
             plate: this.props.navigation.getParam('plate'),
             mood: this.props.navigation.getParam('mood'),

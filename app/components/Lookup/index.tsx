@@ -27,12 +27,12 @@ export default class Lookup extends Component<IProps, IState> {
     }
 
 
-    private _doSearch = async (): Promise<object> => {
+    private _doSearch = async (): Promise<boolean> => {
         return this.props.navigation.navigate('LookupDetail', { ...this.state });
     };
 
 
-    private _doReportSubmission = async (): Promise<object> => {
+    private _doReportSubmission = async (): Promise<boolean> => {
         return this.props.navigation.navigate('Mood', { ...this.state });
     };
 
