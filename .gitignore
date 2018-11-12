@@ -8,3 +8,5 @@ npm-debug.*
 build/
 
 yarn-error\.log
+
+*.lock
