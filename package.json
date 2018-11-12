@@ -12,8 +12,8 @@
         "lint": "cross-env tslint **/*.ts",
         "tsc": "cross-env tsc",
         "clean": "cross-env rimraf build",
-        "build": "yarn run clean && yarn run tsc --",
-        "watch": "yarn run build -- -w",
+        "build": "yarn run clean && yarn run tsc",
+        "watch": "yarn run build -w",
         "watchAndRunAndroid": "cross-env concurrently \"yarn run watch\" \"yarn run android\"",
         "buildRunAndroid": "yarn run build && yarn run watchAndRunAndroid ",
         "watchAndRunIOS": "cross-env concurrently \"yarn run watch\" \"yarn run ios\"",
@@ -37,7 +37,7 @@
         "uuid": "^3.3.2"
     },
     "devDependencies": {
-        "@sentry/types": "^4.2.4",
+        "@sentry/types": "^4.3.0",
         "@sentry/typescript": "^4.0.1",
         "@types/expo": "30.0.0",
         "@types/expo__vector-icons": "6.2.3",
