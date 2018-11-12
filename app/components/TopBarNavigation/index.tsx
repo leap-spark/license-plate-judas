@@ -14,10 +14,10 @@ export default class TopBarNavigation extends Component<IProps> {
     }
 
 
-    private _goBack = (): void => this.props.navigation.goBack();
+    private _goBack = (): boolean => this.props.navigation.goBack();
 
 
-    private _onMore = (): void => this.props.navigation.toggleDrawer();
+    private _onMore = (): boolean => this.props.navigation.toggleDrawer();
 
 
     public render(): React.ReactNode {
