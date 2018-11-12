@@ -1,18 +1,11 @@
 import React from 'react';
-import { Svg } from 'expo';
+import { Image } from 'react-native';
 
 
 const Logo = () => (
-    <Svg height={100} width={100}>
-        <Svg.Circle
-            cx={50}
-            cy={50}
-            r={45}
-            strokeWidth={2.5}
-            stroke="#e74c3c"
-            fill="#f1c40f"
-        />
-    </Svg>
+    <Image
+        style={{ width: 250, height: 119 }}
+        source={ require('../../../assets/LPJ_Logo.png') } />
 );
 
 export default Logo;
