@@ -2,37 +2,36 @@ import uuid from 'uuid/v4';
 import * as firebase from 'firebase';
 
 import Storage from './storage';
-import Sin from './sin';
+import ErrorHandler from './errorHandler';
 
 
 export default class API {
 
-
     public static async signInUser(email: string, password: string): Promise<any> {
         return await firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-            new Sin(`${email} Logged In`, 1, 'info');
+            return ErrorHandler.LogMessage(`${email} Logged In`);
         }).catch((error) => {
-            new Sin(error, 0);
+            return ErrorHandler.UI(error);
         });
     }
 
 
     public static async registerUser(email: string, password: string): Promise<any> {
         return await firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-            new Sin(`${email} Registered`, 1, 'info');
+            return ErrorHandler.LogMessage(`${email} Registered`);
         }).catch((error) => {
-            new Sin(error, 0);
+            return ErrorHandler.LogException(error);
         });
     }
 
 
     public static async signOutUser(): Promise<any> {
         return await Promise.all([
-            new Sin('User Logged Out', 1, 'info'),
+            ErrorHandler.LogMessage('User Logged Out'),
             Storage.delete('Token'),
             firebase.auth().signOut()
         ]).catch((error) => {
-            new Sin(error, 1);
+            return ErrorHandler.LogException(error);
         });
     }
 
@@ -42,7 +41,7 @@ export default class API {
     }
 
 
-    public static async getReportsForPlate(plate: string): Promise<object[]> {
+    public static async getReportsForPlate(plate: string): Promise<object[] | null> {
         try {
             const ids: string[] = await API.getListOfReportIds(plate);
 
@@ -52,16 +51,16 @@ export default class API {
 
             return await API.getReportsByIds(ids);
         } catch (error) {
-            new Sin(error, 1);
-
-            return null;
+            return ErrorHandler.LogException(error);
         }
     }
 
 
     public static async getListOfReportIds(plate: string): Promise<any> {
         try {
-            const ids: any = await firebase.database().ref(`/offenders_meta/${plate}/associated_reports`).once('value');
+            const ids: any = await firebase.database()
+                .ref(`/offenders_meta/${plate}/associated_reports`)
+                .once('value');
 
             if (!ids) {
                 return false;
@@ -69,7 +68,7 @@ export default class API {
 
             return ids.val();
         } catch (error) {
-            new Sin(error, 1);
+            return ErrorHandler.LogException(error);
         }
     }
 
@@ -87,10 +86,13 @@ export default class API {
         // See: https://stackoverflow.com/questions/35931526/speed-up-fetching-posts-for-my-social-network-app-by-using-query-instead-of-obse/35932786#35932786
         await Promise.all(
             idsArray.map(id => {
-                return firebase.database().ref(`/reports/${id}`).limitToLast(limitToLast).once('value', (snapshot) => reports.push(snapshot.val()));
+                return firebase.database()
+                    .ref(`/reports/${id}`)
+                    .limitToLast(limitToLast)
+                    .once('value', (snapshot) => reports.push(snapshot.val()));
             })
         ).catch((error) => {
-            new Sin(error, 1);
+            return ErrorHandler.LogException(error);
         });
 
         return reports.map((report) => {
@@ -104,22 +106,23 @@ export default class API {
         const userID: string = await firebase.auth().currentUser.uid;
 
         if (!userID) {
-            new Sin('No data found for user ' + userID, 1);
-            return null;
+            return ErrorHandler.LogMessage(`No data found for user ${userID}`);
         }
 
-        let userData: any = await firebase.database().ref(`/users_meta/${userID}`).once('value').catch((error) => {
-            new Sin(error, 1);
-        });
+        let userData: any = await firebase.database()
+            .ref(`/users_meta/${userID}`)
+            .once('value')
+            .catch((error) => ErrorHandler.LogException(error));
 
         return userData.val();
     }
 
 
     public static async postArrayOfUpdates(updates): Promise<any> {
-        return await firebase.database().ref().update(updates).catch((error) => {
-            new Sin(error, 1);
-        });
+        return await firebase.database()
+            .ref()
+            .update(updates)
+            .catch((error) => ErrorHandler.LogException(error));
     }
 
 
