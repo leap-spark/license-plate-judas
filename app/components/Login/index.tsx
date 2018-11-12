@@ -74,7 +74,7 @@ export default class Login extends Component<IProps, IState> {
     };
 
 
-    private _loginSuccess = async (): Promise<object> => {
+    private _loginSuccess = async (): Promise<boolean> => {
         const token = await firebase.auth().currentUser.uid;
         await Storage.set('Token', token);
 

@@ -17,7 +17,7 @@ class Authenticator extends Component<IProps> {
     }
 
 
-    public async componentDidMount(): Promise<object> {
+    public async componentDidMount(): Promise<boolean> {
         const userToken = await Storage.get('Token');
         return this.props.navigation.navigate(userToken ? 'App' : 'Auth');
     }
