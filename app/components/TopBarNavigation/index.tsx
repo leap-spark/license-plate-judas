@@ -20,7 +20,7 @@ export default class TopBarNavigation extends Component<IProps> {
     private _onMore = (): void => this.props.navigation.toggleDrawer();
 
 
-    public render() {
+    public render(): React.ReactNode {
         const backButton = this.props.navigation.getParam('backEnabled') && (<Appbar.BackAction onPress={this._goBack} />);
 
         return (

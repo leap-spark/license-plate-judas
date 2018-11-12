@@ -82,7 +82,7 @@ export default class Reason extends Component<IProps, IState> {
     };
 
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <View>
                 <Text>Finalizing</Text>

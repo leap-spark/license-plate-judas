@@ -41,7 +41,7 @@ export default class LookupDetail extends Component<IProps, IState> {
     }
 
 
-    public render() {
+    public render(): React.ReactNode {
         const state: string = this.props.navigation.getParam('plate').substring(0, 2);
         const plate: string = this.props.navigation.getParam('plate').slice(2);
 

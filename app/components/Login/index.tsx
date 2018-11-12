@@ -82,7 +82,7 @@ export default class Login extends Component<IProps, IState> {
     };
 
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <View style={styles.container}>
                 <ActivityIndicator size="large" color="#0000ff" animating={this.state.isDoingAction} />

@@ -37,7 +37,7 @@ export default class Lookup extends Component<IProps, IState> {
     };
 
 
-    public render() {
+    public render(): React.ReactNode {
         return (
             <View style={styles.container}>
                 <StatePicker

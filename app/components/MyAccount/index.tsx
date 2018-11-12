@@ -41,7 +41,7 @@ export default class MyAccount extends Component<{}, IState> {
     }
 
 
-    render() {
+    render(): React.ReactNode {
         return (
             <View style={styles.container}>
                 <View style={styles.loading}>
