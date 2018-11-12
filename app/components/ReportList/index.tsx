@@ -8,7 +8,7 @@ interface IProps {
     initialNumToRender: number,
 }
 
-interface ListItem {
+interface IListItem {
     mood: string,
     timestamp: string,
     location: string,
@@ -23,10 +23,10 @@ export default class ReportList extends Component<IProps> {
     }
 
 
-    private _listItemTemplate = (item: ListItem): React.ReactElement<any> => {
+    private _listItemTemplate = (item: IListItem): React.ReactElement<List.Item> => {
         const mood: string = item.mood === 'happy' ? 'mood' : 'mood-bad';
         const date: Date = new Date(item.timestamp);
-        const datestr: string = date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear();
+        const datestr: string = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
 
         return (
             <List.Item
@@ -41,10 +41,7 @@ export default class ReportList extends Component<IProps> {
 
     public render(): React.ReactNode {
         return (
-            <FlatList {...this.props}
-                ListHeaderComponent={<List.Section children={null} title="Latest Reports"/>}
-                ListFooterComponent={<List.Section children={null}/>}
-                renderItem={({ item }) => this._listItemTemplate(item as ListItem)} />
+            <FlatList {...this.props} renderItem={({ item }) => this._listItemTemplate(item as IListItem)} />
         );
     }
 }
