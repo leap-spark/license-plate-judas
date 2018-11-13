@@ -18,7 +18,7 @@ interface IUserData {
 
 export default class MyAccount extends Component<{}, IState> {
 
-    constructor(props: object) {
+    public constructor(props: object) {
         super(props);
 
         this.state = {
@@ -29,8 +29,8 @@ export default class MyAccount extends Component<{}, IState> {
     }
 
 
-    async componentDidMount() {
-        const userData: UserData = await API.getUserData();
+    public async componentDidMount() {
+        const userData: IUserData = await API.getUserData();
         const reports: object[] = await API.getReportsByIds(userData.reports_submitted);
 
         await this.setState({
@@ -41,7 +41,7 @@ export default class MyAccount extends Component<{}, IState> {
     }
 
 
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         return (
             <View style={styles.container}>
                 <View style={styles.loading}>

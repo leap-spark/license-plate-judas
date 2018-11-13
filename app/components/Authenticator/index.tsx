@@ -12,7 +12,7 @@ interface IProps {
 
 class Authenticator extends Component<IProps> {
 
-    constructor(props: IProps) {
+    public constructor(props: IProps) {
         super(props);
     }
 
