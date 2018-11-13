@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Title, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 
 import Login from '../../components/Login/index';
 import Logo from '../../components/Logo/index';
@@ -14,7 +14,6 @@ interface IProps {
 const LoginView = (props: IProps) => (
     <View style={styles.home}>
         <Logo />
-        <Title>License Plate Judas</Title>
         <Text>Login</Text>
         <Login navigation={props.navigation} />
     </View>

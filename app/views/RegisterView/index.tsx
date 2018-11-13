@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Register from '../../components/Register/index';
-import { Text, Title } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import Logo from '../../components/Logo/index';
 import { INavigation } from "../../typings";
 
@@ -14,7 +14,6 @@ interface IProps {
 const RegisterView = (props: IProps) => (
     <View style={styles.home}>
         <Logo />
-        <Title>License Plate Judas</Title>
         <Text>Register</Text>
         <Register navigation={props.navigation} />
     </View>
