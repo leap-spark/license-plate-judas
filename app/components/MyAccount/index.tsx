@@ -12,7 +12,7 @@ interface IState {
     isDoingAction: boolean,
 }
 
-interface UserData {
+interface IUserData {
     reports_submitted: string[],
 }
 
