@@ -9,18 +9,18 @@ export default class API {
 
     public static async signInUser(email: string, password: string): Promise<any> {
         return await firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-            return ErrorHandler.LogMessage(`${email} Logged In`);
+            return ErrorHandler.LogMessage(`${email} logged In`);
         }).catch((error) => {
-            return ErrorHandler.UI(error);
+            return ErrorHandler.LogMessage(error, 'info', true);
         });
     }
 
 
     public static async registerUser(email: string, password: string): Promise<any> {
         return await firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-            return ErrorHandler.LogMessage(`${email} Registered`);
+            return ErrorHandler.LogMessage(`${email} registered`);
         }).catch((error) => {
-            return ErrorHandler.LogException(error);
+            return ErrorHandler.LogMessage(error, 'info', true);
         });
     }
 
@@ -31,7 +31,7 @@ export default class API {
             Storage.delete('Token'),
             firebase.auth().signOut()
         ]).catch((error) => {
-            return ErrorHandler.LogException(error);
+            return ErrorHandler.LogMessage(error, 'info', true);
         });
     }
 
@@ -41,7 +41,7 @@ export default class API {
     }
 
 
-    public static async getReportsForPlate(plate: string): Promise<object[] | null> {
+    public static async getReportsForPlate(plate: string): Promise<object[] | void> {
         try {
             const ids: string[] = await API.getListOfReportIds(plate);
 
@@ -51,7 +51,7 @@ export default class API {
 
             return await API.getReportsByIds(ids);
         } catch (error) {
-            return ErrorHandler.LogException(error);
+            return ErrorHandler.LogMessage(error, 'error', true);
         }
     }
 
